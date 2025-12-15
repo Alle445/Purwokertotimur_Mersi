@@ -4,10 +4,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Tentang Kami | Geoportal Purwokerto Timur</title>
-    
-    <link rel="stylesheet" href="style.css">
+   
+    <link rel="stylesheet" href="style.css"> 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    
+   
     <style>
         /* ================================================= */
         /* CSS KHUSUS TENTANG - NEW FULL-PAGE LAYOUT */
@@ -16,13 +16,13 @@
         /* Navbar & Global Fixes */
         .content { margin-top: 100px; padding: 0; } /* Padding dan Margin dihilangkan untuk full width */
         .page-container { max-width: 1200px; margin: 0 auto; padding: 0 5%; }
-        
+       
         /* ---------------------------------------------------- */
         /* PAGE 1: TENTANG GEOPORTAL (Mirip Jakarta Satu Page) */
         /* ---------------------------------------------------- */
         .about-page-1 {
             padding: 80px 0;
-            background: white; /* Latar belakang putih full width */
+            background: white;
         }
         .about-header {
             text-align: center;
@@ -40,7 +40,7 @@
             border: none;
             margin: 10px auto 0;
         }
-        
+       
         /* Konten 2 Kolom */
         .about-content-grid {
             display: flex;
@@ -54,7 +54,7 @@
             padding-top: 20px;
         }
         .about-visual-left img {
-            max-width: 250px; /* Ukuran logo yang besar */
+            max-width: 250px;
             height: auto;
             opacity: 0.9;
         }
@@ -65,54 +65,54 @@
         .about-text-right p {
             margin-bottom: 20px;
         }
-        
+       
         /* ---------------------------------------------------- */
         /* PAGE 2: DEVELOPER/PENGEMBANG */
         /* ---------------------------------------------------- */
         .developer-section {
-    padding: 80px 0;
-    background: #f4f7f9; /* Latar belakang berbeda */
-    text-align: center;
-}
-.developer-card {
-    background: white;
-    padding: 30px;
-    border-radius: 15px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-    max-width: 500px;
-    margin: 30px auto;
-}
-.developer-card img {
-    /* STYLING FOTO PENGEMBANG: Lingkaran Sempurna dengan Border Biru */
-    width: 150px;
-    height: 150px;
-    border-radius: 50%; /* LINGKARAN SEMPURNA */
-    object-fit: cover;
-    margin-bottom: 15px;
-    border: 4px solid #073b80; /* Border biru seperti contoh */
-}
-.developer-card h4 {
-    color: #223259;
-    font-size: 1.5em;
-    margin-bottom: 5px;
-}
-.developer-card p {
-    color: #555;
-    margin-bottom: 5px;
-}
-/* STYLING LOGO INSTANSI: Tidak menggunakan border radius atau border */
-.developer-card .instansi-logo {
-    margin-top: 20px;
-    max-height: 70px; /* Ukuran yang sedikit lebih besar */
-    width: auto;
-    border-radius: 0; /* HAPUS BORDER OVAL JIKA ADA */
-    border: none; /* HAPUS BORDER */
-    box-shadow: none;
-    opacity: 1;
-}
+            padding: 80px 0;
+            background: #f4f7f9;
+            text-align: center;
+        }
+        .developer-card {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            max-width: 500px;
+            margin: 30px auto;
+        }
+        .developer-card img {
+            /* STYLING FOTO PENGEMBANG: Lingkaran Sempurna dengan Border Biru */
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 15px;
+            border: 4px solid #073b80;
+        }
+        .developer-card h4 {
+            color: #223259;
+            font-size: 1.5em;
+            margin-bottom: 5px;
+        }
+        .developer-card p {
+            color: #555;
+            margin-bottom: 5px;
+        }
+        /* STYLING LOGO INSTANSI */
+        .developer-card .instansi-logo {
+            margin-top: 20px;
+            max-height: 70px;
+            width: auto;
+            border-radius: 0;
+            border: none;
+            box-shadow: none;
+            opacity: 1;
+        }
 
         /* ---------------------------------------------------- */
-        /* PAGE 3: TEKNOLOGI (Menggunakan styling card dari beranda) */
+        /* PAGE 3: TEKNOLOGI */
         /* ---------------------------------------------------- */
         .teknologi-page-3 {
             padding: 80px 0;
@@ -151,256 +151,279 @@
             color: #666;
         }
 
-        /* --- STYLING NAVBAR OVAL (Diambil dari beranda.html) --- */
+        /* --- STYLING NAVBAR OVAL (Fixes: Logo Size, No Crop) --- */
         .navbar {
-            width: 100%; height: 100px; background: transparent; display: flex;
-            align-items: center; justify-content: center; position: fixed; top: 0;
-            z-index: 999; padding-top: 0; 
+            width: 100%; 
+            height: 100px; 
+            background: transparent; 
+            display: flex;
+            align-items: center; 
+            justify-content: center; 
+            position: fixed; 
+            top: 0;
+            z-index: 999; 
+            padding-top: 0; 
         }
         .navbar-container {
-            width: 98%; max-width: 1500px; height: 70px; background: rgba(255, 255, 255, 0.9); 
-            border-radius: 50px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-            backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); 
-            display: flex; align-items: center; justify-content: space-between; padding: 0 30px;
-
+            width: 98%; 
+            max-width: 1500px; 
+            height: 70px; 
+            background: rgba(255, 255, 255, 0.9); 
+            border-radius: 50px; 
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+            backdrop-filter: blur(8px); 
+            -webkit-backdrop-filter: blur(8px); 
+            display: flex; 
+            align-items: center; 
+            justify-content: space-between; 
+            padding: 0 30px;
         }
-        
-        .nav-left { display: flex; align-items: center; z-index: 1000; position: static; left: auto; }
-        .logo { height: 50px; margin-right: 10px; }
-        .nav-menu { display: flex; gap: 30px; }
-        .nav-menu a { color: #073b80; padding: 2px 0; text-decoration: none; font-weight: 600; }
-        .nav-menu a:hover { color: #fb8500; }
-        .nav-left span { font-weight: bold; color: #223259; font-size: 1.1em; }
-        .footer { background: #223259; color: white; padding: 20px; text-align: center; margin-top: 0; }
+       
+        .nav-left { 
+            display: flex; 
+            align-items: center; 
+            z-index: 1000; 
+            /* Fix: Mengatur logo dan teks dalam satu baris dengan ukuran lebih kecil */
+        }
+        .logo { 
+            height: 40px; /* Logo lebih kecil */
+            margin-right: 10px; 
+        }
+        .nav-left span { 
+            font-weight: bold; 
+            color: #223259; 
+            font-size: 1em; /* Teks nama geoportal lebih kecil */
+        }
 
-        @media (max-width: 768px) {
+        .nav-menu { 
+            display: flex; 
+            gap: 30px; 
+        }
+        .nav-menu a { 
+            color: #073b80; 
+            padding: 2px 0; 
+            text-decoration: none; 
+            font-weight: 600; 
+        }
+        .nav-menu a:hover { 
+            color: #fb8500; 
+        }
+
+        /* --- FOOTER SECTION --- */
+        .footer-section {
+            background: linear-gradient(to top, #eaf2ff 0%, #e0f0ff 100%);
+            padding: 40px 5%; 
+            color: #333;
+            width: 100%;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            gap: 40px;
+            flex-wrap: wrap;
+            padding-bottom: 30px;
+            border-bottom: 1px solid #d0e0f0;
+        }
+
+        .footer-left {
+            flex-basis: 50%; 
+        }
+
+        .footer-left h4 {
+            font-size: 1.5em;
+            color: #073b80;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .footer-left img {
+            height: 35px;
+        }
+
+        .footer-left p {
+            font-size: 0.95em;
+            line-height: 1.6;
+            max-width: 500px;
+        }
+
+        .footer-right {
+            flex-basis: 40%;
+        }
+
+        .footer-right h4 {
+            font-size: 1.2em;
+            color: #223259;
+            margin-bottom: 20px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .contact-item i {
+            font-size: 1.2em;
+            color: #073b80;
+            margin-right: 10px;
+            width: 25px; 
+            text-align: center;
+        }
+
+        .contact-item a {
+            text-decoration: none;
+            color: #333;
+            transition: color 0.3s;
+        }
+
+        .contact-item a:hover {
+            color: #fb8500;
+        }
+
+        .footer-copyright {
+            text-align: center;
+            padding-top: 20px;
+            font-size: 0.9em;
+            color: #666;
+        }
+
+        .footer-links {
+            margin-top: 10px;
+        }
+        .footer-links a {
+            color: #073b80;
+            text-decoration: none;
+            font-size: 0.9em;
+            margin: 0 10px;
+        }
+
+        /* ================================================= */
+        /* RESPONSIVE DAN HAMBURGER MENU FIX */
+        /* ================================================= */
+
+        .menu-toggle {
+            display: none;
+            font-size: 1.8em;
+            color: #073b80;
+            cursor: pointer;
+            /* Memastikan menu-toggle ada di paling kanan saat tidak di-toggle */
+            margin-left: auto; 
+        }
+
+        /* Tablet & HP */
+        @media (max-width: 900px) {
+
+            .navbar {
+                height: auto;
+                padding: 10px 0;
+            }
+
+            .navbar-container {
+                height: auto;
+                flex-wrap: wrap;
+                padding: 10px 20px; /* Padding lebih kecil di mobile */
+            }
+
+            .nav-left {
+                width: 100%; /* Agar logo dan teks di baris sendiri saat mobile */
+                justify-content: space-between; /* Pisahkan logo/teks dengan tombol toggle */
+            }
+
+            .nav-menu {
+                width: 100%;
+                flex-direction: column;
+                align-items: center;
+                gap: 15px;
+                margin-top: 15px;
+                display: none;
+            }
+
+            .nav-menu.active {
+                display: flex;
+            }
+
+            .menu-toggle {
+                display: block;
+                /* Pindahkan menu-toggle ke dalam nav-left untuk kontrol tata letak */
+                margin-left: 0; 
+            }
+
             .about-content-grid {
                 flex-direction: column;
                 text-align: center;
             }
+
             .about-text-right {
                 text-align: left;
             }
+
             .about-visual-left {
-                order: -1; /* Pindahkan visual ke atas di mobile */
+                order: -1;
+            }
+
+            .about-visual-left img {
+                max-width: 180px;
             }
         }
-/* --- FOOTER SECTION (REPLIKA JAKARTA SATU) --- */
 
-.footer-section {
-    /* Background gradien dari biru muda ke putih kebiruan */
-    background: linear-gradient(to top, #eaf2ff 0%, #e0f0ff 100%);
-    padding: 40px 5%; /* Padding atas bawah */
-    color: #333;
-    width: 100%;
-}
+        /* HP kecil */
+        @media (max-width: 480px) {
 
-.footer-content {
-    max-width: 1200px;
-    margin: 0 auto;
-    display: flex;
-    justify-content: space-between;
-    gap: 40px;
-    flex-wrap: wrap;
-    padding-bottom: 30px;
-    border-bottom: 1px solid #d0e0f0;
-}
+            .about-header h1 {
+                font-size: 1.8em;
+            }
 
-/* Kolom Kiri: Logo dan Deskripsi */
-.footer-left {
-    flex-basis: 50%; /* Mengambil setengah lebar */
-}
+            .developer-card {
+                padding: 20px;
+                margin: 15px;
+            }
 
-.footer-left h4 {
-    font-size: 1.5em;
-    color: #073b80;
-    margin-bottom: 15px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
+            .developer-card img {
+                width: 120px;
+                height: 120px;
+            }
 
-.footer-left img {
-    height: 35px;
-}
+            .teknologi-card {
+                width: calc(50% - 10px); /* 2 kolom di HP kecil */
+            }
 
-.footer-left p {
-    font-size: 0.95em;
-    line-height: 1.6;
-    max-width: 500px;
-}
+            .footer-left, .footer-right {
+                flex-basis: 100%;
+                margin-bottom: 20px;
+            }
 
-/* Kolom Kanan: Kontak dan Sosial Media */
-.footer-right {
-    flex-basis: 40%;
-}
+            .footer-left h4 {
+                flex-direction: column;
+                align-items: flex-start;
+                font-size: 1.2em;
+            }
 
-.footer-right h4 {
-    font-size: 1.2em;
-    color: #223259;
-    margin-bottom: 20px;
-}
-
-.contact-item {
-    display: flex;
-    align-items: center;
-    margin-bottom: 15px;
-}
-
-.contact-item i {
-    font-size: 1.2em;
-    color: #073b80;
-    margin-right: 10px;
-    width: 25px; /* Lebar tetap untuk ikon */
-    text-align: center;
-}
-
-.contact-item a {
-    text-decoration: none;
-    color: #333;
-    transition: color 0.3s;
-}
-
-.contact-item a:hover {
-    color: #fb8500;
-}
-
-/* Bagian Hak Cipta */
-.footer-copyright {
-    text-align: center;
-    padding-top: 20px;
-    font-size: 0.9em;
-    color: #666;
-}
-
-/* Syarat dan Ketentuan (Opsional) */
-.footer-links {
-    margin-top: 10px;
-}
-.footer-links a {
-    color: #073b80;
-    text-decoration: none;
-    font-size: 0.9em;
-    margin: 0 10px;
-}
-
-@media (max-width: 768px) {
-    .footer-content {
-        flex-direction: column;
-    }
-    .footer-left, .footer-right {
-        flex-basis: 100%;
-        margin-bottom: 20px;
-    }
-}
-        /* ================================================= */
-/* RESPONSIVE TAMBAHAN - TANPA MERUSAK DESAIN ASLI */
-/* ================================================= */
-
-.menu-toggle {
-    display: none;
-    font-size: 1.8em;
-    color: #073b80;
-    cursor: pointer;
-}
-
-/* Tablet & HP */
-@media (max-width: 900px) {
-
-    .navbar {
-        height: auto;
-        padding: 10px 0;
-    }
-
-    .navbar-container {
-        height: auto;
-        flex-wrap: wrap;
-    }
-
-    .nav-menu {
-        width: 100%;
-        flex-direction: column;
-        align-items: center;
-        gap: 15px;
-        margin-top: 15px;
-        display: none;
-    }
-
-    .nav-menu.active {
-        display: flex;
-    }
-
-    .menu-toggle {
-        display: block;
-    }
-
-    .about-content-grid {
-        flex-direction: column;
-        text-align: center;
-    }
-
-    .about-text-right {
-        text-align: left;
-    }
-
-    .about-visual-left img {
-        max-width: 180px;
-    }
-}
-
-/* HP kecil */
-@media (max-width: 480px) {
-
-    .about-header h1 {
-        font-size: 1.8em;
-    }
-
-    .developer-card {
-        padding: 20px;
-        margin: 15px;
-    }
-
-    .developer-card img {
-        width: 120px;
-        height: 120px;
-    }
-
-    .teknologi-card {
-        width: 100%;
-    }
-
-    .footer-left h4 {
-        flex-direction: column;
-        align-items: flex-start;
-        font-size: 1.2em;
-    }
-
-    .footer-left p,
-    .contact-item {
-        font-size: 0.9em;
-    }
-}
-
-        
+            .footer-left p,
+            .contact-item {
+                font-size: 0.9em;
+            }
+        }
+       
     </style>
 </head>
-
-    <script>
-const toggle = document.getElementById("menuToggle");
-const menu = document.querySelector(".nav-menu");
-
-toggle.addEventListener("click", () => {
-    menu.classList.toggle("active");
-});
-</script>
 
 <body>
 
     <header class="navbar">
         <div class="navbar-container">
             <div class="nav-left">
-                <img src="Logo_Banyumas.png" class="logo" alt="Logo Banyumas"/>
-                <span style="font-weight: bold; color: #223259;">Geoportal Purwokerto Timur</span>
+                <div style="display: flex; align-items: center;">
+                    <img src="Logo_Banyumas.png" class="logo" alt="Logo Banyumas"/>
+                    <span>Geoportal Purwokerto Timur</span>
+                </div>
+                <div class="menu-toggle" id="menuToggle">
+                    <i class="fas fa-bars"></i>
+                </div>
             </div>
 
             <nav class="nav-menu">
@@ -409,38 +432,32 @@ toggle.addEventListener("click", () => {
                 <a href="../Mersi/"><i class="fas fa-map-marked-alt"></i> Peta Kelurahan Mersi</a>
                 <a href="../Tentang/"><i class="fas fa-info-circle"></i> Tentang</a>
             </nav>
-
-            <div class="menu-toggle" id="menuToggle">
-    <i class="fas fa-bars"></i>
-</div>
-
-
-            
+           
         </div>
     </header>
 
     <div class="content">
-        
+       
         <div class="about-page-1">
             <div class="page-container">
-                
-                <a href="../Beranda/"><i class="fas fa-home"></i> Beranda</a>
+               
+                <a href="../Beranda/" style="text-decoration: none; color: #073b80; font-weight: 500;"><i class="fas fa-home"></i> Beranda</a>
 
                 <div class="about-header">
                     <h1>Purwokerto Timur</h1>
                     <hr>
                 </div>
-                
+               
                 <div class="about-content-grid">
-                    
+                   
                     <div class="about-visual-left">
                         <img src="Logo_Banyumas.png" alt="Logo Kabupaten Banyumas">
                     </div>
-                    
+                   
                     <div class="about-text-right">
-                        
+                       
                         <p>Geoportal Purwokerto Timur merupakan platform web yang menyediakan informasi data spasial terintegrasi untuk wilayah Kecamatan Purwokerto Timur. Platform ini dibangun berdasarkan hasil integrasi data dari berbagai sumber terpercaya untuk mendukung fungsi perencanaan, pengelolaan aset, dan peningkatan transparansi data publik bagi masyarakat dan pemangku kepentingan.</p>
-                        
+                       
                         <p>Hasil visualisasi data disajikan dalam bentuk peta interaktif (spasial) menggunakan peta dasar tunggal. Informasi yang tersedia pada portal dapat diakses secara publik dan diperbarui secara berkala, menjadikannya acuan dalam mengambil keputusan strategis di tingkat kecamatan.</p>
 
                         <h3>Tujuan dan Manfaat</h3>
@@ -456,28 +473,28 @@ toggle.addEventListener("click", () => {
 
 
         <div class="developer-section">
-    <div class="page-container">
-        <div class="developer-card">
-            <img src="foto_pengembang.png" alt="Foto Pengembang"> 
-            
-            <h4>Sigit Setiyoko</h4>
-            <p>Mahasiswa/Tim Pengembang GIS</p>
-            <p>Kontak: sigitsetiyoko9@gmail.com</p>
-            <hr style="margin: 20px auto; width: 50%;">
-            <p>Dikembangkan oleh:</p>
-            
-            <img src="logo_instansi.png" alt="Logo Instansi Pendidikan" class="instansi-logo">
-            <p>Universitas Amikom Purwokerto</p>
+            <div class="page-container">
+                <div class="developer-card">
+                    <img src="foto_pengembang.png" alt="Foto Pengembang"> 
+                   
+                    <h4>Sigit Setiyoko</h4>
+                    <p>Mahasiswa/Tim Pengembang GIS</p>
+                    <p>Kontak: sigitsetiyoko9@gmail.com</p>
+                    <hr style="margin: 20px auto; width: 50%;">
+                    <p>Dikembangkan oleh:</p>
+                   
+                    <img src="logo_instansi.png" alt="Logo Instansi Pendidikan" class="instansi-logo">
+                    <p>Universitas Amikom Purwokerto</p>
+                </div>
+            </div>
         </div>
-    </div>
-</div>
 
 
         <div class="teknologi-page-3">
             <div class="page-container">
                 <h2>🛠️ Teknologi yang Digunakan</h2>
                 <div class="teknologi-cards">
-                    
+                   
                     <div class="teknologi-card">
                         <i class="fa fa-globe" style="color: #4CAF50;"></i> 
                         <h4>QGIS</h4>
@@ -491,11 +508,11 @@ toggle.addEventListener("click", () => {
                     </div>
 
                     <div class="teknologi-card">
-                        <i class="fa fa-css3-alt" style="color: #1572B6;"></i>
+                        <i class="fa-brands fa-css3-alt" style="color: #1572B6;"></i>
                         <h4>CSS3</h4>
                         <p>Styling & tata letak visual.</p>
                     </div>
-                    
+                   
                     <div class="teknologi-card">
                         <i class="fa fa-file-code" style="color: #F7DF1E;"></i>
                         <h4>JavaScript/Leaflet</h4>
@@ -516,57 +533,69 @@ toggle.addEventListener("click", () => {
                 </div>
             </div>
         </div>
-        
+       
 
     </div>
 
     <div class="footer-section">
-    <div class="footer-content">
-        
-        <div class="footer-left">
-            <h4>
-                <img src="Logo_Banyumas.png" alt="Logo Pwt Timur"> 
-                GEOPORTAL PURWOKERTO TIMUR
-            </h4>
-            <p>Situs ini merupakan sarana komunikasi dan visualisasi peta dan data Geospasial untuk wilayah Kecamatan Purwokerto Timur, baik untuk kebutuhan Pemerintah Kabupaten Banyumas maupun untuk masyarakat.</p>
-            
-            <div class="footer-links">
-                <a href="#">Syarat Ketentuan</a> | 
-                <a href="#">Kebijakan Privasi</a>
+        <div class="footer-content">
+           
+            <div class="footer-left">
+                <h4>
+                    <img src="Logo_Banyumas.png" alt="Logo Pwt Timur"> 
+                    GEOPORTAL PURWOKERTO TIMUR
+                </h4>
+                <p>Situs ini merupakan sarana komunikasi dan visualisasi peta dan data Geospasial untuk wilayah Kecamatan Purwokerto Timur, baik untuk kebutuhan Pemerintah Kabupaten Banyumas maupun untuk masyarakat.</p>
+               
+                <div class="footer-links">
+                    <a href="#">Syarat Ketentuan</a> | 
+                    <a href="#">Kebijakan Privasi</a>
+                </div>
             </div>
-        </div>
 
-        <div class="footer-right">
-            <h4>Informasi Kontak</h4>
-            
-            <div class="contact-item">
-                <i class="fa fa-envelope"></i>
-                <a href="mailto:contact@purwokertotimur.go.id">contact@purwokertotimur.go.id</a>
+            <div class="footer-right">
+                <h4>Informasi Kontak</h4>
+               
+                <div class="contact-item">
+                    <i class="fa fa-envelope"></i>
+                    <a href="mailto:contact@purwokertotimur.go.id">contact@purwokertotimur.go.id</a>
+                </div>
+               
+                <div class="contact-item">
+                    <i class="fa-brands fa-instagram"></i>
+                    <a href="https://instagram.com/purwokertotimur">@purwokertotimur</a>
+                </div>
+               
+                <div class="contact-item">
+                    <i class="fa-brands fa-youtube"></i>
+                    <a href="https://youtube.com">Purwokerto Timur Data</a>
+                </div>
+               
+                <div class="contact-item">
+                    <i class="fa fa-map-marker-alt"></i>
+                    <a href="#">Purwokerto Timur</a>
+                </div>
+               
             </div>
-            
-            <div class="contact-item">
-                <i class="fa-brands fa-instagram"></i>
-                <a href="https://instagram.com/purwokertotimur">@purwokertotimur</a>
-            </div>
-            
-            <div class="contact-item">
-                <i class="fa-brands fa-youtube"></i>
-                <a href="https://youtube.com">Purwokerto Timur Data</a>
-            </div>
-            
-            <div class="contact-item">
-                <i class="fa fa-map-marker-alt"></i>
-                <a href="#">Purwokerto Timur</a>
-            </div>
-            
+           
         </div>
-        
+       
+        <div class="footer-copyright">
+            © Hak Cipta 2025. Pemerintah Kabupaten Banyumas.
+        </div>
     </div>
-    
-    <div class="footer-copyright">
-        © Hak Cipta 2025. Pemerintah Kabupaten Banyumas.
-    </div>
-</div>
+
+    <script>
+        const toggle = document.getElementById("menuToggle");
+        const menu = document.querySelector(".nav-menu");
+
+        // Memeriksa apakah elemen toggle dan menu ada sebelum menambahkan event listener
+        if (toggle && menu) {
+            toggle.addEventListener("click", () => {
+                menu.classList.toggle("active");
+            });
+        }
+    </script>
 
 </body>
 </html>
