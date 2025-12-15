@@ -36,135 +36,187 @@
                 top: 80px;
                 left: 0;
             }
-
-			/* ================================================= */
-    /* NAVBAR BAR HIJAU SOLID (Gaya Seragam) */
-    /* ================================================= */
-
-    .navbar {
-        width: 100%; 
-        height: 70px; /* Tinggi solid bar */
-        background: #4CAF50; /* Warna Hijau Solid */
-        display: flex;
-        align-items: center; 
-        justify-content: center; 
-        position: fixed; 
-        top: 0;
-        z-index: 999; 
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); 
-    }
-    .navbar-container {
-        width: 100%; 
-        max-width: 1500px; 
-        height: 100%; 
-        /* Hapus styling Oval */
-        background: transparent; 
-        border-radius: 0; 
-        box-shadow: none;
-        backdrop-filter: none; 
-        -webkit-backdrop-filter: none; 
+        /* ================================================= */
+        /* FONT GLOBAL REPLACEMENT */
+        /* ================================================= */
+        body {
+            font-family: 'Poppins', sans-serif; /* Menerapkan Poppins sebagai font utama */
+        }
         
-        display: flex; 
-        align-items: center; 
-        justify-content: space-between; 
-        padding: 0 30px;
-    }
-   
-    .nav-left { 
-        display: flex; 
-        align-items: center; 
-        z-index: 1000; 
-        color: white; /* Warna teks putih */
-        position: static; 
-        width: auto;
-    }
-    .logo { 
-        height: 35px;
-        margin-right: 15px; 
-    }
-    .nav-left span { 
-        font-weight: 600; 
-        color: white; /* Warna teks putih */
-        font-size: 1.1em; 
-    }
+        /* ================================================= */
+        /* CSS KHUSUS BERANDA DAN NAVBAR OVAL (Konsisten dengan tentang.html) */
+        /* ================================================= */
 
-    .nav-menu { 
-        display: flex; 
-        gap: 20px; 
-    }
-    .nav-menu a { 
-        color: white; /* Warna teks putih */
-        padding: 20px 5px; 
-        text-decoration: none; 
-        font-weight: 400; 
-        transition: background 0.3s, color 0.3s;
-    }
-    .nav-menu a:hover { 
-        color: #FFEB3B; /* Kuning terang saat hover */
-        background: rgba(0, 0, 0, 0.1); 
-    }
+        /* Global Layout */
+        .content { margin-top: 70px; padding: 0; }
+        .page-container { max-width: 1200px; margin: 0 auto; padding: 0 5%; }
 
-    /* ================================================= */
-    /* RESPONSIVE DAN HAMBURGER MENU FIX */
-    /* ================================================= */
-
-    .menu-toggle {
-        display: none;
-        font-size: 1.8em;
-        color: white; /* FIX: Warna putih agar terlihat di bar hijau */
-        cursor: pointer;
-        margin-left: auto; 
-    }
-
-    @media (max-width: 900px) {
+        /* --- STYLING NAVBAR OVAL (Replikasi dari tentang.html) --- */
         .navbar {
-            height: auto; /* Memungkinkan navbar memanjang saat menu terbuka */
+            width: 100%; 
+            height: 70px; 
+            background: transparent; 
+            display: flex;
+            align-items: center; 
+            justify-content: center; 
+            position: fixed; 
+            top: 0;
+            z-index: 999; 
+            padding-top: 0;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); 
         }
         .navbar-container {
-            flex-wrap: wrap;
-            padding: 10px 20px;
-            height: auto;
-        }
-
-        .nav-left {
-            width: 100%;
+            width: 98%; 
+            max-width: 1500px; 
+            height: 100%; 
+            /* background: rgba(255, 255, 255, 0.9); 
+            border-radius: 50px; 
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+            backdrop-filter: blur(8px); 
+            -webkit-backdrop-filter: blur(8px);  */
+            display: flex; 
+            align-items: center; 
             justify-content: space-between; 
+            padding: 0 30px;
         }
-        .nav-left > div:first-child { 
+       
+        .nav-left { 
+            display: flex; 
+            align-items: center; 
+            z-index: 1000; 
+            position: static; 
+            left: auto;
+            width: auto;
+        }
+        .logo { 
+            height: 35px;
+            margin-right: 10px; 
+        }
+        .nav-left span { 
+            font-weight: bold; 
+            color: #223259; 
+            font-size: 1em; 
+        }
+
+        .nav-menu { 
+            display: flex; 
+            gap: 30px; 
+        }
+        .nav-menu a { 
+            color: #073b80; 
+            padding: 2px 0; 
+            text-decoration: none; 
+            font-weight: 600; 
+            transition: color 0.3s;
+        }
+        .nav-menu a:hover { 
+            color: #fb8500; 
+        }
+        
+        /* Hero Section Styling */
+        .hero-section {
+            background-image: url('hero-bg.png'); 
+            background-size: cover;
+            background-position: center;
+            height: 600px;
+            color: white;
             display: flex;
+            flex-direction: column;
+            justify-content: center;
             align-items: center;
+            text-align: center;
+            position: relative;
+            margin-top: -100px;
+            padding-top: 100px;
         }
 
-        .nav-menu {
-            width: 100%;
-            flex-direction: column; /* FIX: Menyusun menu secara vertikal */
-            align-items: flex-start; /* FIX: Rata kiri agar rapi seperti daftar */
-            gap: 5px; /* Jarak vertikal lebih rapat */
-            margin-top: 10px;
-            display: none;
-            /* Latar belakang tipis saat menu terbuka untuk pemisah visual */
-            background: rgba(0, 0, 0, 0.1); 
-            padding: 5px 0 10px 0; /* Memberi padding di dalam menu */
-        }
-        .nav-menu a {
-            padding: 10px 15px; /* FIX: Padding yang cukup untuk area klik di mobile */
-            width: 100%;
-            box-sizing: border-box;
-            font-weight: 600; /* Dibuat sedikit tebal di mobile */
-        }
-        .nav-menu a:hover {
-            background: rgba(255, 255, 255, 0.2); /* Efek hover yang lebih terlihat di mobile */
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.4);
         }
 
-        .nav-menu.active {
-            display: flex;
+        .hero-content {
+            z-index: 10;
+            max-width: 90%;
         }
+
+        .hero-content h1 {
+            font-size: 3em;
+            margin-bottom: 20px;
+        }
+
+        .hero-content p {
+            font-size: 1.2em;
+            margin-bottom: 40px;
+            max-width: 850px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        /* ================================================= */
+        /* RESPONSIVE DAN HAMBURGER MENU */
+        /* ================================================= */
 
         .menu-toggle {
-            display: block;
-            margin-left: 0;
+            display: none;
+            font-size: 1.8em;
+            color: #073b80;
+            cursor: pointer;
+            margin-left: auto; 
         }
-    }
+
+        @media (max-width: 900px) {
+            .navbar-container {
+                flex-wrap: wrap;
+                padding: 10px 20px;
+                height: auto;
+            }
+
+            .nav-left {
+                width: 100%;
+                justify-content: space-between; 
+            }
+            .nav-left > div:first-child { 
+                display: flex;
+                align-items: center;
+            }
+
+            .nav-menu {
+                width: 100%;
+                flex-direction: column;
+                align-items: center;
+                gap: 15px;
+                margin-top: 15px;
+                display: none;
+            }
+
+            .nav-menu.active {
+                display: flex;
+            }
+
+            .menu-toggle {
+                display: block;
+                margin-left: 0;
+            }
+            
+            .hero-section {
+                height: 500px;
+            }
+
+            .hero-content h1 {
+                font-size: 2.2em;
+            }
+            .hero-content p {
+                font-size: 1em;
+            }
+
+            .footer-left, .footer-right {
+                flex-basis: 100%;
+            }
+        }
 
 
 			
