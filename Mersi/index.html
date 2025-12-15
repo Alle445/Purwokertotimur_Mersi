@@ -22,7 +22,7 @@
                 padding: 0;
                 margin: 0;
                 /* Tambahkan padding-top ke body untuk memberi ruang navbar */
-                padding-top: 100px; /* Jarak untuk navbar 100px */
+                padding-top: 80px; /* Jarak untuk navbar 100px */
                 box-sizing: border-box; /* Penting untuk padding agar tidak merusak total height */
                 overflow: hidden; /* Mencegah scroll double */
             }
@@ -113,49 +113,7 @@
             color: #fb8500; 
         }
         
-        /* Hero Section Styling */
-        .hero-section {
-            background-image: url('hero-bg.png'); 
-            background-size: cover;
-            background-position: center;
-            height: 600px;
-            color: white;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            position: relative;
-            margin-top: -100px;
-            padding-top: 100px;
-        }
-
-        .hero-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.4);
-        }
-
-        .hero-content {
-            z-index: 10;
-            max-width: 90%;
-        }
-
-        .hero-content h1 {
-            font-size: 3em;
-            margin-bottom: 20px;
-        }
-
-        .hero-content p {
-            font-size: 1.2em;
-            margin-bottom: 40px;
-            max-width: 850px;
-            margin-left: auto;
-            margin-right: auto;
-        }
+        
         /* ================================================= */
         /* RESPONSIVE DAN HAMBURGER MENU */
         /* ================================================= */
@@ -2943,7 +2901,7 @@
         });
 
 
-			/ --- Hamburger Menu Logic ---
+			// --- Hamburger Menu Logic ---
         const toggle = document.getElementById("menuToggle");
         const menu = document.querySelector(".nav-menu");
 
