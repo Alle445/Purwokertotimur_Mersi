@@ -14,32 +14,16 @@
         /* ================================================= */
 
         /* Navbar & Global Fixes */
-        .content { margin-top: 100px; padding: 0; } /* Padding dan Margin dihilangkan untuk full width */
+        .content { margin-top: 100px; padding: 0; }
         .page-container { max-width: 1200px; margin: 0 auto; padding: 0 5%; }
         
         /* ---------------------------------------------------- */
-        /* PAGE 1: TENTANG GEOPORTAL (Mirip Jakarta Satu Page) */
+        /* PAGE 1: TENTANG GEOPORTAL */
         /* ---------------------------------------------------- */
-        .about-page-1 {
-            padding: 80px 0;
-            background: white; /* Latar belakang putih full width */
-        }
-        .about-header {
-            text-align: center;
-            margin-bottom: 60px;
-        }
-        .about-header h1 {
-            font-size: 2.5em;
-            color: #073b80;
-            margin-bottom: 5px;
-        }
-        .about-header hr {
-            width: 120px;
-            height: 4px;
-            background-color: #fb8500;
-            border: none;
-            margin: 10px auto 0;
-        }
+        .about-page-1 { padding: 80px 0; background: white; }
+        .about-header { text-align: center; margin-bottom: 60px; }
+        .about-header h1 { font-size: 2.5em; color: #073b80; margin-bottom: 5px; }
+        .about-header hr { width: 120px; height: 4px; background-color: #fb8500; border: none; margin: 10px auto 0; }
         
         /* Konten 2 Kolom */
         .about-content-grid {
@@ -48,250 +32,143 @@
             gap: 50px;
             line-height: 1.8;
         }
-        .about-visual-left {
-            flex: 1;
-            text-align: center;
-            padding-top: 20px;
-        }
-        .about-visual-left img {
-            max-width: 250px; /* Ukuran logo yang besar */
-            height: auto;
-            opacity: 0.9;
-        }
-        .about-text-right {
-            flex: 2;
-            text-align: justify;
-        }
-        .about-text-right p {
-            margin-bottom: 20px;
-        }
+        .about-visual-left { flex: 1; text-align: center; padding-top: 20px; }
+        .about-visual-left img { max-width: 250px; height: auto; opacity: 0.9; }
+        .about-text-right { flex: 2; text-align: justify; }
+        .about-text-right p { margin-bottom: 20px; }
         
         /* ---------------------------------------------------- */
         /* PAGE 2: DEVELOPER/PENGEMBANG */
         /* ---------------------------------------------------- */
-        .developer-section {
-    padding: 80px 0;
-    background: #f4f7f9; /* Latar belakang berbeda */
-    text-align: center;
-}
-.developer-card {
-    background: white;
-    padding: 30px;
-    border-radius: 15px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-    max-width: 500px;
-    margin: 30px auto;
-}
-.developer-card img {
-    /* STYLING FOTO PENGEMBANG: Lingkaran Sempurna dengan Border Biru */
-    width: 150px;
-    height: 150px;
-    border-radius: 50%; /* LINGKARAN SEMPURNA */
-    object-fit: cover;
-    margin-bottom: 15px;
-    border: 4px solid #073b80; /* Border biru seperti contoh */
-}
-.developer-card h4 {
-    color: #223259;
-    font-size: 1.5em;
-    margin-bottom: 5px;
-}
-.developer-card p {
-    color: #555;
-    margin-bottom: 5px;
-}
-/* STYLING LOGO INSTANSI: Tidak menggunakan border radius atau border */
-.developer-card .instansi-logo {
-    margin-top: 20px;
-    max-height: 70px; /* Ukuran yang sedikit lebih besar */
-    width: auto;
-    border-radius: 0; /* HAPUS BORDER OVAL JIKA ADA */
-    border: none; /* HAPUS BORDER */
-    box-shadow: none;
-    opacity: 1;
-}
+        .developer-section { padding: 80px 0; background: #f4f7f9; text-align: center; }
+        .developer-card {
+            background: white; padding: 30px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            max-width: 500px; margin: 30px auto;
+        }
+        .developer-card img {
+            width: 150px; height: 150px; border-radius: 50%; object-fit: cover;
+            margin-bottom: 15px; border: 4px solid #073b80;
+        }
+        .developer-card .instansi-logo { margin-top: 20px; max-height: 70px; width: auto; border-radius: 0; border: none; box-shadow: none; opacity: 1; }
+        .developer-card h4 { color: #223259; font-size: 1.5em; margin-bottom: 5px; }
+        .developer-card p { color: #555; margin-bottom: 5px; }
 
         /* ---------------------------------------------------- */
-        /* PAGE 3: TEKNOLOGI (Menggunakan styling card dari beranda) */
+        /* PAGE 3: TEKNOLOGI */
         /* ---------------------------------------------------- */
-        .teknologi-page-3 {
-            padding: 80px 0;
-            background: white;
-            text-align: center;
-        }
-        .teknologi-page-3 h2 {
-            font-size: 2em;
-            color: #073b80;
-            margin-bottom: 40px;
-        }
+        .teknologi-page-3 { padding: 80px 0; background: white; text-align: center; }
+        .teknologi-page-3 h2 { font-size: 2em; color: #073b80; margin-bottom: 40px; }
         .teknologi-cards {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 20px;
+            display: flex; justify-content: center; flex-wrap: wrap; gap: 20px;
         }
         .teknologi-card {
-            background: #fff;
-            padding: 20px 10px;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            width: 150px; 
+            background: #fff; padding: 20px 10px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            width: 150px; /* Lebar default untuk desktop/tablet */
             text-align: center;
         }
-        .teknologi-card i {
-            font-size: 3em;
-            margin-bottom: 10px;
-        }
-        .teknologi-card h4 {
-            font-size: 1em;
-            color: #223259;
-        }
-        .teknologi-card p {
-            font-size: 0.85em;
-            color: #666;
-        }
+        .teknologi-card i { font-size: 3em; margin-bottom: 10px; }
+        .teknologi-card h4 { font-size: 1em; color: #223259; }
+        .teknologi-card p { font-size: 0.85em; color: #666; }
 
-        /* --- STYLING NAVBAR OVAL (Diambil dari beranda.html) --- */
-        .navbar {
-            width: 100%; height: 100px; background: transparent; display: flex;
-            align-items: center; justify-content: center; position: fixed; top: 0;
-            z-index: 999; padding-top: 0; 
-        }
-        .navbar-container {
-            width: 98%; max-width: 1500px; height: 70px; background: rgba(255, 255, 255, 0.9); 
-            border-radius: 50px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-            backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); 
-            display: flex; align-items: center; justify-content: space-between; padding: 0 30px;
-        }
+        /* --- STYLING NAVBAR OVAL --- */
+        .navbar { width: 100%; height: 100px; background: transparent; display: flex; align-items: center; justify-content: center; position: fixed; top: 0; z-index: 999; padding-top: 0; }
+        .navbar-container { width: 98%; max-width: 1500px; height: 70px; background: rgba(255, 255, 255, 0.9); border-radius: 50px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); display: flex; align-items: center; justify-content: space-between; padding: 0 30px; }
         .nav-left { display: flex; align-items: center; z-index: 1000; position: static; left: auto; }
         .logo { height: 50px; margin-right: 10px; }
         .nav-menu { display: flex; gap: 30px; }
         .nav-menu a { color: #073b80; padding: 2px 0; text-decoration: none; font-weight: 600; }
-        .nav-menu a:hover { color: #fb8500; }
         .nav-left span { font-weight: bold; color: #223259; font-size: 1.1em; }
-        .footer { background: #223259; color: white; padding: 20px; text-align: center; margin-top: 0; }
 
+        /* --- FOOTER SECTION --- */
+        .footer-section { background: linear-gradient(to top, #eaf2ff 0%, #e0f0ff 100%); padding: 40px 5%; color: #333; width: 100%; }
+        .footer-content { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; gap: 40px; flex-wrap: wrap; padding-bottom: 30px; border-bottom: 1px solid #d0e0f0; }
+        .footer-left { flex-basis: 50%; }
+        .footer-right { flex-basis: 40%; }
+        .contact-item { display: flex; align-items: center; margin-bottom: 15px; }
+        .footer-copyright { text-align: center; padding-top: 20px; font-size: 0.9em; color: #666; }
+
+        /* ================================================= */
+        /* MEDIA QUERIES (RESPONSIVITAS MOBILE) */
+        /* ================================================= */
+
+        /* Target Mobile (Layar <= 768px) */
         @media (max-width: 768px) {
-            .about-content-grid {
-                flex-direction: column;
-                text-align: center;
+            
+            /* Navbar Oval */
+            .navbar-container {
+                width: 95%; /* Sedikit margin di mobile */
+                height: auto; /* Biarkan tinggi menyesuaikan */
+                padding: 15px 20px;
+                flex-direction: column; /* Ubah navbar menjadi kolom */
             }
-            .about-text-right {
-                text-align: left;
+            .nav-menu {
+                flex-direction: column; /* Menu disusun vertikal */
+                gap: 10px; /* Kurangi jarak antar menu */
+                width: 100%;
+                text-align: center;
+                margin-top: 15px;
+            }
+            .nav-menu a {
+                padding: 5px 0;
+                font-size: 1em;
+            }
+            .nav-left {
+                justify-content: center; /* Rata tengah logo */
+                width: 100%;
+            }
+            .nav-left span {
+                font-size: 1em; /* Kecilkan judul */
+            }
+            .logo {
+                height: 40px; /* Kecilkan logo */
+            }
+
+            /* Page 1: Konten Utama (Sudah diatur) */
+            .about-content-grid {
+                flex-direction: column; /* Kolom jadi tumpukan */
+                text-align: center;
+                gap: 20px;
             }
             .about-visual-left {
-                order: -1; /* Pindahkan visual ke atas di mobile */
+                order: -1; /* Pindahkan visual ke atas */
+            }
+            .about-text-right {
+                text-align: left; /* Biarkan teks paragraf normal/kiri */
+            }
+            .about-header h1 {
+                font-size: 2em;
+            }
+            
+            /* Page 3: Kartu Teknologi */
+            .teknologi-cards {
+                gap: 10px;
+            }
+            .teknologi-card {
+                width: 45%; /* Dua kartu per baris */
+                padding: 15px 5px;
+            }
+            .teknologi-card i {
+                font-size: 2.5em; /* Kecilkan ikon */
+            }
+
+            /* Footer */
+            .footer-content {
+                flex-direction: column; /* Kolom jadi tumpukan */
+            }
+            .footer-left, .footer-right {
+                flex-basis: 100%;
+                margin-bottom: 20px;
+            }
+            .footer-left h4 {
+                 justify-content: center; /* Rata tengah logo di footer */
+            }
+            .contact-item {
+                justify-content: flex-start; /* Jaga kontak tetap di kiri */
+            }
+            .footer-links {
+                text-align: center; /* Rata tengah Syarat & Ketentuan */
             }
         }
-/* --- FOOTER SECTION (REPLIKA JAKARTA SATU) --- */
-
-.footer-section {
-    /* Background gradien dari biru muda ke putih kebiruan */
-    background: linear-gradient(to top, #eaf2ff 0%, #e0f0ff 100%);
-    padding: 40px 5%; /* Padding atas bawah */
-    color: #333;
-    width: 100%;
-}
-
-.footer-content {
-    max-width: 1200px;
-    margin: 0 auto;
-    display: flex;
-    justify-content: space-between;
-    gap: 40px;
-    flex-wrap: wrap;
-    padding-bottom: 30px;
-    border-bottom: 1px solid #d0e0f0;
-}
-
-/* Kolom Kiri: Logo dan Deskripsi */
-.footer-left {
-    flex-basis: 50%; /* Mengambil setengah lebar */
-}
-
-.footer-left h4 {
-    font-size: 1.5em;
-    color: #073b80;
-    margin-bottom: 15px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.footer-left img {
-    height: 35px;
-}
-
-.footer-left p {
-    font-size: 0.95em;
-    line-height: 1.6;
-    max-width: 500px;
-}
-
-/* Kolom Kanan: Kontak dan Sosial Media */
-.footer-right {
-    flex-basis: 40%;
-}
-
-.footer-right h4 {
-    font-size: 1.2em;
-    color: #223259;
-    margin-bottom: 20px;
-}
-
-.contact-item {
-    display: flex;
-    align-items: center;
-    margin-bottom: 15px;
-}
-
-.contact-item i {
-    font-size: 1.2em;
-    color: #073b80;
-    margin-right: 10px;
-    width: 25px; /* Lebar tetap untuk ikon */
-    text-align: center;
-}
-
-.contact-item a {
-    text-decoration: none;
-    color: #333;
-    transition: color 0.3s;
-}
-
-.contact-item a:hover {
-    color: #fb8500;
-}
-
-/* Bagian Hak Cipta */
-.footer-copyright {
-    text-align: center;
-    padding-top: 20px;
-    font-size: 0.9em;
-    color: #666;
-}
-
-/* Syarat dan Ketentuan (Opsional) */
-.footer-links {
-    margin-top: 10px;
-}
-.footer-links a {
-    color: #073b80;
-    text-decoration: none;
-    font-size: 0.9em;
-    margin: 0 10px;
-}
-
-@media (max-width: 768px) {
-    .footer-content {
-        flex-direction: column;
-    }
-    .footer-left, .footer-right {
-        flex-basis: 100%;
-        margin-bottom: 20px;
-    }
-}
-        
     </style>
 </head>
 <body>
@@ -349,21 +226,26 @@
 
 
         <div class="developer-section">
-    <div class="page-container">
-        <div class="developer-card">
-            <img src="foto_pengembang.png" alt="Foto Pengembang"> 
-            
-            <h4>Sigit Setiyoko</h4>
-            <p>Mahasiswa/Tim Pengembang GIS</p>
-            <p>Kontak: sigitsetiyoko9@gmail.com</p>
-            <hr style="margin: 20px auto; width: 50%;">
-            <p>Dikembangkan oleh:</p>
-            
-            <img src="logo_instansi.png" alt="Logo Instansi Pendidikan" class="instansi-logo">
-            <p>Universitas Amikom Purwokerto</p>
+            <div class="page-container">
+                <div class="about-header">
+                    <h1>Tim Pengembang</h1>
+                    <hr>
+                </div>
+
+                <div class="developer-card">
+                    <img src="foto_pengembang.png" alt="Foto Pengembang"> 
+                    
+                    <h4>Sigit Setiyoko</h4>
+                    <p>Mahasiswa/Tim Pengembang GIS</p>
+                    <p>Kontak: sigitsetiyoko9@gmail.com</p>
+                    <hr style="margin: 20px auto; width: 50%;">
+                    <p>Dikembangkan oleh:</p>
+                    
+                    <img src="logo_instansi.png" alt="Logo Instansi Pendidikan" class="instansi-logo">
+                    <p>Universitas Amikom Purwokerto</p>
+                </div>
+            </div>
         </div>
-    </div>
-</div>
 
 
         <div class="teknologi-page-3">
@@ -414,52 +296,52 @@
     </div>
 
     <div class="footer-section">
-    <div class="footer-content">
-        
-        <div class="footer-left">
-            <h4>
-                <img src="Logo_Banyumas.png" alt="Logo Pwt Timur"> 
-                GEOPORTAL PURWOKERTO TIMUR
-            </h4>
-            <p>Situs ini merupakan sarana komunikasi dan visualisasi peta dan data Geospasial untuk wilayah Kecamatan Purwokerto Timur, baik untuk kebutuhan Pemerintah Kabupaten Banyumas maupun untuk masyarakat.</p>
+        <div class="footer-content">
             
-            <div class="footer-links">
-                <a href="#">Syarat Ketentuan</a> | 
-                <a href="#">Kebijakan Privasi</a>
+            <div class="footer-left">
+                <h4>
+                    <img src="Logo_Banyumas.png" alt="Logo Pwt Timur"> 
+                    GEOPORTAL PURWOKERTO TIMUR
+                </h4>
+                <p>Situs ini merupakan sarana komunikasi dan visualisasi peta dan data Geospasial untuk wilayah Kecamatan Purwokerto Timur, baik untuk kebutuhan Pemerintah Kabupaten Banyumas maupun untuk masyarakat.</p>
+                
+                <div class="footer-links">
+                    <a href="#">Syarat Ketentuan</a> | 
+                    <a href="#">Kebijakan Privasi</a>
+                </div>
             </div>
-        </div>
 
-        <div class="footer-right">
-            <h4>Informasi Kontak</h4>
-            
-            <div class="contact-item">
-                <i class="fa fa-envelope"></i>
-                <a href="mailto:contact@purwokertotimur.go.id">contact@purwokertotimur.go.id</a>
-            </div>
-            
-            <div class="contact-item">
-                <i class="fa-brands fa-instagram"></i>
-                <a href="https://instagram.com/purwokertotimur">@purwokertotimur</a>
-            </div>
-            
-            <div class="contact-item">
-                <i class="fa-brands fa-youtube"></i>
-                <a href="https://youtube.com">Purwokerto Timur Data</a>
-            </div>
-            
-            <div class="contact-item">
-                <i class="fa fa-map-marker-alt"></i>
-                <a href="#">Purwokerto Timur</a>
+            <div class="footer-right">
+                <h4>Informasi Kontak</h4>
+                
+                <div class="contact-item">
+                    <i class="fa fa-envelope"></i>
+                    <a href="mailto:contact@purwokertotimur.go.id">contact@purwokertotimur.go.id</a>
+                </div>
+                
+                <div class="contact-item">
+                    <i class="fa-brands fa-instagram"></i>
+                    <a href="https://instagram.com/purwokertotimur">@purwokertotimur</a>
+                </div>
+                
+                <div class="contact-item">
+                    <i class="fa-brands fa-youtube"></i>
+                    <a href="https://youtube.com">Purwokerto Timur Data</a>
+                </div>
+                
+                <div class="contact-item">
+                    <i class="fa fa-map-marker-alt"></i>
+                    <a href="#">Purwokerto Timur</a>
+                </div>
+                
             </div>
             
         </div>
         
+        <div class="footer-copyright">
+            © Hak Cipta 2025. Pemerintah Kabupaten Banyumas.
+        </div>
     </div>
-    
-    <div class="footer-copyright">
-        © Hak Cipta 2025. Pemerintah Kabupaten Banyumas.
-    </div>
-</div>
 
 </body>
 </html>
