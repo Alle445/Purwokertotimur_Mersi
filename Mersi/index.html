@@ -15,16 +15,188 @@
         <link rel="stylesheet" href="css/leaflet.photon.css">
         <link rel="stylesheet" href="css/leaflet-measure.css">
         <style>
-        html, body, #map {
-            width: 100%;
-            height: 100%;
-            padding: 0;
-            margin: 0;
+        /* Pastikan peta menggunakan 100% lebar layar */
+            html, body {
+                width: 100%;
+                height: 100%;
+                padding: 0;
+                margin: 0;
+                /* Tambahkan padding-top ke body untuk memberi ruang navbar */
+                padding-top: 100px; /* Jarak untuk navbar 100px */
+                box-sizing: border-box; /* Penting untuk padding agar tidak merusak total height */
+                overflow: hidden; /* Mencegah scroll double */
+            }
+            #map {
+                /* Atur peta untuk menggunakan sisa tinggi layar */
+                height: calc(100vh - 100px); /* Total viewport height dikurangi tinggi navbar */
+                width: 100%;
+                padding: 0;
+                margin: 0;
+                position: absolute; /* Atur posisi absolut di bawah navbar */
+                top: 80px;
+                left: 0;
+            }
+
+			/* ================================================= */
+    /* NAVBAR BAR HIJAU SOLID (Gaya Seragam) */
+    /* ================================================= */
+
+    .navbar {
+        width: 100%; 
+        height: 70px; /* Tinggi solid bar */
+        background: #4CAF50; /* Warna Hijau Solid */
+        display: flex;
+        align-items: center; 
+        justify-content: center; 
+        position: fixed; 
+        top: 0;
+        z-index: 999; 
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); 
+    }
+    .navbar-container {
+        width: 100%; 
+        max-width: 1500px; 
+        height: 100%; 
+        /* Hapus styling Oval */
+        background: transparent; 
+        border-radius: 0; 
+        box-shadow: none;
+        backdrop-filter: none; 
+        -webkit-backdrop-filter: none; 
+        
+        display: flex; 
+        align-items: center; 
+        justify-content: space-between; 
+        padding: 0 30px;
+    }
+   
+    .nav-left { 
+        display: flex; 
+        align-items: center; 
+        z-index: 1000; 
+        color: white; /* Warna teks putih */
+        position: static; 
+        width: auto;
+    }
+    .logo { 
+        height: 35px;
+        margin-right: 15px; 
+    }
+    .nav-left span { 
+        font-weight: 600; 
+        color: white; /* Warna teks putih */
+        font-size: 1.1em; 
+    }
+
+    .nav-menu { 
+        display: flex; 
+        gap: 20px; 
+    }
+    .nav-menu a { 
+        color: white; /* Warna teks putih */
+        padding: 20px 5px; 
+        text-decoration: none; 
+        font-weight: 400; 
+        transition: background 0.3s, color 0.3s;
+    }
+    .nav-menu a:hover { 
+        color: #FFEB3B; /* Kuning terang saat hover */
+        background: rgba(0, 0, 0, 0.1); 
+    }
+
+    /* ================================================= */
+    /* RESPONSIVE DAN HAMBURGER MENU FIX */
+    /* ================================================= */
+
+    .menu-toggle {
+        display: none;
+        font-size: 1.8em;
+        color: white; /* FIX: Warna putih agar terlihat di bar hijau */
+        cursor: pointer;
+        margin-left: auto; 
+    }
+
+    @media (max-width: 900px) {
+        .navbar {
+            height: auto; /* Memungkinkan navbar memanjang saat menu terbuka */
         }
+        .navbar-container {
+            flex-wrap: wrap;
+            padding: 10px 20px;
+            height: auto;
+        }
+
+        .nav-left {
+            width: 100%;
+            justify-content: space-between; 
+        }
+        .nav-left > div:first-child { 
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-menu {
+            width: 100%;
+            flex-direction: column; /* FIX: Menyusun menu secara vertikal */
+            align-items: flex-start; /* FIX: Rata kiri agar rapi seperti daftar */
+            gap: 5px; /* Jarak vertikal lebih rapat */
+            margin-top: 10px;
+            display: none;
+            /* Latar belakang tipis saat menu terbuka untuk pemisah visual */
+            background: rgba(0, 0, 0, 0.1); 
+            padding: 5px 0 10px 0; /* Memberi padding di dalam menu */
+        }
+        .nav-menu a {
+            padding: 10px 15px; /* FIX: Padding yang cukup untuk area klik di mobile */
+            width: 100%;
+            box-sizing: border-box;
+            font-weight: 600; /* Dibuat sedikit tebal di mobile */
+        }
+        .nav-menu a:hover {
+            background: rgba(255, 255, 255, 0.2); /* Efek hover yang lebih terlihat di mobile */
+        }
+
+        .nav-menu.active {
+            display: flex;
+        }
+
+        .menu-toggle {
+            display: block;
+            margin-left: 0;
+        }
+    }
+
+
+			
         </style>
         <title></title>
     </head>
     <body>
+
+		<header class="navbar">
+    <div class="navbar-container">
+        <div class="nav-left">
+            <div style="display: flex; align-items: center;">
+                <img src="Logo_Banyumas.png" class="logo" alt="Logo Banyumas"/>
+                <span>Geoportal Purwokerto Timur</span>
+            </div>
+            <div class="menu-toggle" id="menuToggle">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+
+        <nav class="nav-menu">
+                <a href="../Beranda/"><i class="fas fa-home"></i> Beranda</a>
+                <a href="../Purwokerto_timur/"><i class="fas fa-map"></i> Peta Purwokerto Timur</a>
+                <a href="../Mersi/"><i class="fas fa-map-marked-alt"></i> Peta Kelurahan Mersi</a>
+                <a href="../Tentang/"><i class="fas fa-info-circle"></i> Tentang</a>
+        </nav>
+       
+    </div>
+</header>
+
+
+		
         <div id="map">
         </div>
         <script src="js/qgis2web_expressions.js"></script>
@@ -2717,6 +2889,57 @@
         map.on("layerremove", function(){
             resetLabels([layer_BataskelurahanMersi_1,layer_BatasRW_2,layer_Tempat_Ibadah_11,layer_Fasilitas_pendidikan_12,layer_Fasilitas_kesehatan_13,layer_Tempat_Olahraga_14,layer_Fasilitas_Penginapan_15,layer_Kantor_pemerintahan_16,layer_Kuburan_17,layer_Rumah_Warga_18,layer_Pusat_Perekonomian_19,layer_Rumah_Sigit_20,layer_BatasRT_21,layer_Jl_Gang_22,layer_Jl_Kecamatan_25]);
         });
+
+
+			/ --- Hamburger Menu Logic ---
+        const toggle = document.getElementById("menuToggle");
+        const menu = document.querySelector(".nav-menu");
+
+        if (toggle && menu) {
+            toggle.addEventListener("click", () => {
+                menu.classList.toggle("active");
+            });
+        }
+        
+        // --- Dropdown Logic ---
+        const jelajahiBtn = document.getElementById('jelajahi-btn');
+        const petaDropdown = document.getElementById('peta-dropdown');
+
+        function toggleDropdown() {
+            const isVisible = petaDropdown.style.display === 'block';
+            
+            if (isVisible) {
+                petaDropdown.style.display = 'none';
+                jelajahiBtn.setAttribute('aria-expanded', 'false');
+            } else {
+                petaDropdown.style.display = 'block';
+                jelajahiBtn.setAttribute('aria-expanded', 'true');
+            }
+        }
+
+        // 1. Pemicu utama saat tombol "Jelajahi Peta" di-klik
+        if (jelajahiBtn) {
+            jelajahiBtn.addEventListener('click', function(e) {
+                e.stopPropagation(); 
+                toggleDropdown();
+            });
+        }
+
+        // 2. Menutup dropdown jika klik di luar area dropdown/tombol
+        document.addEventListener('click', function(e) {
+            if (petaDropdown && jelajahiBtn) {
+                if (!petaDropdown.contains(e.target) && e.target !== jelajahiBtn) {
+                    if (petaDropdown.style.display === 'block') {
+                        petaDropdown.style.display = 'none';
+                        jelajahiBtn.setAttribute('aria-expanded', 'false');
+                    }
+                }
+            }
+        });
+
+
+
+			
         </script>        
     </body>
 </html>
