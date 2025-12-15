@@ -10,6 +10,12 @@
    
     <style>
         /* ================================================= */
+        /* FONT GLOBAL REPLACEMENT */
+        /* ================================================= */
+        body {
+            font-family: 'Poppins', sans-serif; /* Menerapkan Poppins sebagai font utama */
+        }
+        /* ================================================= */
         /* CSS KHUSUS BERANDA DAN NAVBAR OVAL (Konsisten dengan tentang.html) */
         /* ================================================= */
 
@@ -235,86 +241,12 @@
         }
 
         /* --- FOOTER SECTION (Replikasi dari tentang.html) --- */
-        .footer-section {
-            background: linear-gradient(to top, #eaf2ff 0%, #e0f0ff 100%);
-            padding: 40px 5%; 
-            color: #333;
-            width: 100%;
-        }
-
-        .footer-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            gap: 40px;
-            flex-wrap: wrap;
-            padding-bottom: 30px;
-            border-bottom: 1px solid #d0e0f0;
-        }
-
-        .footer-left {
-            flex-basis: 50%; 
-        }
-
-        .footer-left h4 {
-            font-size: 1.5em;
-            color: #073b80;
-            margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .footer-left img {
-            height: 35px;
-        }
-
-        .footer-left p {
-            font-size: 0.95em;
-            line-height: 1.6;
-            max-width: 500px;
-        }
-
-        .footer-right {
-            flex-basis: 40%;
-        }
-
-        .footer-right h4 {
-            font-size: 1.2em;
-            color: #223259;
-            margin-bottom: 20px;
-        }
-
-        .contact-item {
-            display: flex;
-            align-items: center;
-            margin-bottom: 15px;
-        }
-
-        .contact-item i {
-            font-size: 1.2em;
-            color: #073b80;
-            margin-right: 10px;
-            width: 25px; 
+        .footer {
+            background: #223259;
+            color: white;
+            padding: 20px;
             text-align: center;
-        }
-
-        .contact-item a {
-            text-decoration: none;
-            color: #333;
-            transition: color 0.3s;
-        }
-
-        .contact-item a:hover {
-            color: #fb8500;
-        }
-
-        .footer-copyright {
-            text-align: center;
-            padding-top: 20px;
-            font-size: 0.9em;
-            color: #666;
+            margin-top: 50px;
         }
 
         /* ================================================= */
@@ -398,10 +330,10 @@
             </div>
 
             <nav class="nav-menu">
-                <a href="beranda.html" style="color: #fb8500;"><i class="fas fa-home"></i> Beranda</a>
-                <a href="index.html?target=pwt_timur"><i class="fas fa-map"></i> Peta Purwokerto Timur</a>
-                <a href="index.html?target=mersi"><i class="fas fa-map-marked-alt"></i> Peta Kelurahan Mersi</a>
-                <a href="tentang.html"><i class="fas fa-info-circle"></i> Tentang</a>
+                <a href="../Beranda/"><i class="fas fa-home"></i> Beranda</a>
+                <a href="../Purwokerto_timur/"><i class="fas fa-map"></i> Peta Purwokerto Timur</a>
+                <a href="../Mersi/"><i class="fas fa-map-marked-alt"></i> Peta Kelurahan Mersi</a>
+                <a href="../Tentang/"><i class="fas fa-info-circle"></i> Tentang</a>
             </nav>
            
         </div>
@@ -419,8 +351,8 @@
                         Jelajahi Peta <i class="fas fa-arrow-down"></i>
                     </span>
                     <div class="dropdown-content" id="peta-dropdown">
-                        <a href="index.html?target=pwt_timur"><i class="fas fa-map"></i> Peta Kecamatan Purwokerto Timur</a>
-                        <a href="index.html?target=mersi"><i class="fas fa-map-marked-alt"></i> Peta Kelurahan Mersi</a>
+                        <a href="../Purwokerto_timur/"><i class="fas fa-map"></i> Peta Purwokerto Timur</a>
+                        <a href="../Mersi/"><i class="fas fa-map-marked-alt"></i> Peta Kelurahan Mersi</a>
                     </div>
                 </div>
             </div>
@@ -452,51 +384,14 @@
                 </div>
             </div>
         </div>
+
+        <div class="footer">
+            © 2025 Geoportal Purwokerto Timur. Dibangun dengan QGIS dan Leaflet.
+        </div>
         
     </div>
 
-    <div class="footer-section">
-        <div class="footer-content">
-            
-            <div class="footer-left">
-                <h4>
-                    <img src="Logo_Banyumas.png" alt="Logo Pwt Timur"> 
-                    GEOPORTAL PURWOKERTO TIMUR
-                </h4>
-                <p>Situs ini merupakan sarana komunikasi dan visualisasi peta dan data Geospasial untuk wilayah Kecamatan Purwokerto Timur, baik untuk kebutuhan Pemerintah Kabupaten Banyumas maupun untuk masyarakat.</p>
-                
-                <div class="footer-links">
-                    <a href="#">Syarat Ketentuan</a> | 
-                    <a href="#">Kebijakan Privasi</a>
-                </div>
-            </div>
-
-            <div class="footer-right">
-                <h4>Informasi Kontak</h4>
-                
-                <div class="contact-item">
-                    <i class="fa fa-envelope"></i>
-                    <a href="mailto:sigitsetiyoko9@gmail.com">sigitsetiyoko9@gmail.com</a>
-                </div>
-                
-                <div class="contact-item">
-                    <i class="fa-brands fa-instagram"></i>
-                    <a href="#">@purwokertotimur (Contoh)</a>
-                </div>
-                
-                <div class="contact-item">
-                    <i class="fa fa-map-marker-alt"></i>
-                    <a href="#">Purwokerto Timur, Kabupaten Banyumas</a>
-                </div>
-                
-            </div>
-            
-        </div>
-        
-        <div class="footer-copyright">
-            © Hak Cipta 2025. Pemerintah Kabupaten Banyumas.
-        </div>
-    </div>
+    
 
 
     <script>
