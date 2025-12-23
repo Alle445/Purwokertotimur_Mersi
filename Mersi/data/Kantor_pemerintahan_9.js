@@ -1,0 +1,1 @@
+var json_Kantor_pemerintahan_9 = {"type":"FeatureCollection","name":"Kantor_pemerintahan_9","crs":{"type":"name","properties":{"name":"urn:ogc:def:crs:OGC:1.3:CRS84"}},"features":[{"type":"Feature","properties":{"id":"1","nama":"Balai Desa","alamat":"RT05/04"},"geometry":{"type":"Point","coordinates":[109.267831407325218,-7.42802569903877]}}]}
