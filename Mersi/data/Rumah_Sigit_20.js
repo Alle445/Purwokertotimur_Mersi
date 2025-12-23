@@ -1,1 +1,0 @@
-var json_Rumah_Sigit_20 = {"type":"FeatureCollection","name":"Rumah_Sigit_20","crs":{"type":"name","properties":{"name":"urn:ogc:def:crs:OGC:1.3:CRS84"}},"features":[{"type":"Feature","properties":{"id":"1","Nama":"Rumah Sigit","Alamat":"Jl.Kartaja I No.20"},"geometry":{"type":"Point","coordinates":[109.268492778878354,-7.426121031740388]}}]}
