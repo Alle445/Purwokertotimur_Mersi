@@ -1,0 +1,1 @@
+var json_Jalan_Provinsi_10 = {"type":"FeatureCollection","name":"Jalan_Provinsi_10","crs":{"type":"name","properties":{"name":"urn:ogc:def:crs:OGC:1.3:CRS84"}},"features":[]}
