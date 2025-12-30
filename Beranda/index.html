@@ -2,359 +2,959 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes" />
     <title>Beranda | Geoportal Purwokerto Timur</title>
     
     <link rel="icon" href="Logo_Banyumas.png" type="image/png">
-   
-    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
    
     <style>
         /* ================================================= */
-        /* FONT GLOBAL REPLACEMENT */
+        /* VARIABLES & RESET */
         /* ================================================= */
+        :root {
+            --primary-blue: #073b80;
+            --secondary-blue: #223259;
+            --accent-orange: #fb8500;
+            --accent-light: #ffb347;
+            --light-gray: #f8fafc;
+            --white: #ffffff;
+            --dark-gray: #555555;
+            --shadow-sm: 0 2px 10px rgba(0, 0, 0, 0.08);
+            --shadow-md: 0 4px 20px rgba(0, 0, 0, 0.15);
+            --shadow-lg: 0 10px 40px rgba(0, 0, 0, 0.2);
+            --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            --gradient-blue: linear-gradient(135deg, #073b80 0%, #223259 100%);
+            --gradient-orange: linear-gradient(135deg, #fb8500 0%, #ffb347 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
-            font-family: 'Poppins', sans-serif; /* Menerapkan Poppins sebagai font utama */
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.7;
+            color: #333;
+            background-color: #ffffff;
+            overflow-x: hidden;
         }
-        /* ================================================= */
-        /* CSS KHUSUS BERANDA DAN NAVBAR OVAL (Konsisten dengan tentang.html) */
-        /* ================================================= */
 
-        /* Global Layout */
-        .content { margin-top: 100px; padding: 0; } /* Ditingkatkan untuk memberi ruang pada navbar oval */
-        .page-container { max-width: 1200px; margin: 0 auto; padding: 0 5%; }
-
-        /* --- STYLING NAVBAR OVAL (Replikasi dari tentang.html) --- */
-        .navbar {
-            width: 100%; 
-            height: 100px; 
-            background: transparent; 
-            display: flex;
-            align-items: center; 
-            justify-content: center; 
-            position: fixed; 
+        /* ================================================= */
+        /* LOADING ANIMATION (Dari Halaman Tentang) */
+        /* ================================================= */
+        .loader {
+            position: fixed;
             top: 0;
-            z-index: 999; 
-            padding-top: 0; 
-        }
-        .navbar-container {
-            width: 98%; 
-            max-width: 1500px; 
-            height: 70px; 
-            background: rgba(255, 255, 255, 0.9); 
-            border-radius: 50px; 
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-            backdrop-filter: blur(8px); 
-            -webkit-backdrop-filter: blur(8px); 
-            display: flex; 
-            align-items: center; 
-            justify-content: space-between; 
-            padding: 0 30px;
-        }
-       
-        .nav-left { 
-            display: flex; 
-            align-items: center; 
-            z-index: 1000; 
-            position: static; 
-            left: auto;
-            /* Untuk mobile, agar logo dan toggle terpisah */
-            width: auto;
-        }
-        .logo { 
-            height: 40px; /* Ukuran yang konsisten dengan fix sebelumnya */
-            margin-right: 10px; 
-        }
-        .nav-left span { 
-            font-weight: bold; 
-            color: #223259; 
-            font-size: 1em; 
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--gradient-blue);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
         }
 
-        .nav-menu { 
-            display: flex; 
-            gap: 30px; 
+        .loader.hidden {
+            opacity: 0;
+            visibility: hidden;
         }
-        .nav-menu a { 
-            color: #073b80; 
-            padding: 2px 0; 
-            text-decoration: none; 
-            font-weight: 600; 
-            transition: color 0.3s;
+
+        .loader::after {
+            content: '';
+            width: 60px;
+            height: 60px;
+            border: 5px solid rgba(255, 255, 255, 0.3);
+            border-top-color: white;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
         }
-        .nav-menu a:hover { 
-            color: #fb8500; 
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* ================================================= */
+        /* NAVBAR - DISELARASKAN DENGAN TENTANG */
+        /* ================================================= */
+        .navbar {
+            width: 100%;
+            height: 85px;
+            background: transparent;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: fixed;
+            top: 15px;
+            left: 0;
+            z-index: 1000;
+            padding: 0 15px;
+            transition: var(--transition);
+        }
+
+        .navbar.scrolled {
+            top: 10px;
+            height: 75px;
+        }
+
+        .navbar-container {
+            width: 98%;
+            max-width: 1500px;
+            height: 70px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 50px;
+            box-shadow: var(--shadow-md);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 25px;
+            transition: var(--transition);
+        }
+
+        .navbar.scrolled .navbar-container {
+            background: rgba(255, 255, 255, 0.98);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo {
+            height: 40px;
+            width: auto;
+            transition: var(--transition);
+        }
+
+        .nav-left span {
+            font-weight: 700;
+            color: var(--secondary-blue);
+            font-size: 1.1rem;
+            white-space: nowrap;
+        }
+
+        /* Navigation Menu */
+        .nav-menu {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            list-style: none;
+        }
+
+        .nav-menu a, .nav-dropdown > a {
+            color: var(--primary-blue);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            padding: 8px 0;
+            position: relative;
+            transition: var(--transition);
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-menu a:hover, .nav-dropdown > a:hover,
+        .nav-menu a.active, .nav-dropdown.active > a {
+            color: var(--accent-orange);
+        }
+
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent-orange);
+            transition: width 0.3s ease;
+        }
+
+        .nav-menu a:hover::after,
+        .nav-menu a.active::after {
+            width: 100%;
+        }
+
+        /* Dropdown Kelurahan - Diselaraskan */
+        .nav-dropdown {
+            position: relative;
+            display: inline-block;
         }
         
-        /* Hero Section Styling */
+        .nav-dropdown > a {
+            cursor: pointer;
+            padding-right: 5px;
+        }
+        
+        .nav-dropdown > a i.fa-chevron-down {
+            font-size: 0.8em;
+            transition: transform 0.3s ease;
+        }
+        
+        .nav-dropdown.active > a i.fa-chevron-down {
+            transform: rotate(180deg);
+        }
+        
+        .kelurahan-dropdown {
+            display: none;
+            position: absolute;
+            top: calc(100% + 10px);
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: var(--white);
+            min-width: 200px;
+            width: max-content;
+            max-width: 250px;
+            box-shadow: var(--shadow-lg);
+            border-radius: 15px;
+            overflow: hidden;
+            z-index: 1001;
+            opacity: 0;
+            animation: fadeIn 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateX(-50%) translateY(-15px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(-50%) translateY(0);
+            }
+        }
+        
+        .kelurahan-dropdown a {
+            color: var(--secondary-blue);
+            padding: 15px 20px;
+            text-decoration: none;
+            display: block;
+            font-weight: 500;
+            font-size: 0.95rem;
+            border-bottom: 1px solid rgba(241, 241, 241, 0.8);
+            transition: all 0.3s ease;
+        }
+        
+        .kelurahan-dropdown a:last-child {
+            border-bottom: none;
+        }
+        
+        .kelurahan-dropdown a:hover {
+            background-color: rgba(251, 133, 0, 0.1);
+            color: var(--accent-orange);
+            padding-left: 25px;
+            transform: translateX(5px);
+        }
+        
+        .kelurahan-dropdown a i {
+            margin-right: 10px;
+            width: 18px;
+            text-align: center;
+            font-size: 0.9em;
+        }
+
+        .menu-toggle {
+            display: none;
+            font-size: 1.5rem;
+            color: var(--primary-blue);
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 10px;
+            border-radius: 10px;
+            transition: var(--transition);
+        }
+
+        .menu-toggle:hover {
+            background-color: rgba(7, 59, 128, 0.1);
+        }
+
+        /* ================================================= */
+        /* CONTENT AREA - DITAMBAH ANIMASI GLOBAL */
+        /* ================================================= */
+        .content {
+            margin-top: 0;
+            padding: 0;
+            width: 100%;
+            animation: fadeInContent 0.8s ease-out; /* ANIMASI BARU */
+        }
+
+        @keyframes fadeInContent {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .page-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 5%;
+        }
+
+        /* ================================================= */
+        /* HERO SECTION - TETAP SAMA (Dengan padding-top) */
+        /* ================================================= */
         .hero-section {
-            /* Pastikan path gambar benar (asumsi hero-bg.png ada di direktori yang sama) */
-            background-image: url('hero-bg.png'); 
-            background-size: cover;
-            background-position: center;
-            height: 600px;
-            color: white;
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
+                        url('hero-bg.png') center/cover no-repeat;
+            min-height: 100vh;
+            max-height: 800px;
+            color: var(--white);
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
+            padding: 20px;
             position: relative;
-            margin-top: -100px;
-            padding-top: 100px; /* Kompensasi margin negatif */
-        }
-
-        .hero-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.4);
+            margin-top: 0;
+            padding-top: 100px; /* Kompensasi navbar fixed */
         }
 
         .hero-content {
-            z-index: 10;
-            max-width: 90%;
+            max-width: 1200px;
+            width: 90%;
+            padding: 30px;
+            animation: slideUp 1s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .hero-content h1 {
-            font-size: 3em;
-            margin-bottom: 20px;
+            font-size: clamp(1.8rem, 5vw, 3.5rem);
+            margin-bottom: 25px;
+            line-height: 1.2;
+            font-weight: 700;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
         }
 
         .hero-content p {
-            font-size: 1.2em;
+            font-size: clamp(1rem, 2.5vw, 1.4rem);
             margin-bottom: 40px;
-            max-width: 850px;
+            max-width: 800px;
             margin-left: auto;
             margin-right: auto;
+            text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
+            opacity: 0.95;
         }
 
-        /* Tombol Jelajahi Peta (Dropdown Trigger) */
-        .jelajahi-btn {
-            padding: 15px 30px;
-            background: #fb8500;
-            color: white;
-            text-decoration: none;
-            font-weight: bold;
-            font-size: 1.1em;
-            border-radius: 8px;
-            transition: all 0.3s ease-in-out; 
-            cursor: pointer;
-            display: inline-block;
-        }
-
-        .jelajahi-btn:hover {
-            background: #d67000;
-            transform: scale(1.05); 
-            box-shadow: 0 8px 15px rgba(251, 133, 0, 0.5); 
-        }
-        
-        /* Dropdown untuk Pilihan Peta */
+        /* DROPDOWN BUTTON */
         .dropdown {
             position: relative;
             display: inline-block;
         }
 
-        .dropdown-content {
-            display: none; 
+        .jelajahi-btn {
+            padding: clamp(12px, 2vw, 18px) clamp(25px, 4vw, 40px);
+            background: var(--accent-orange);
+            color: var(--white);
+            font-weight: 600;
+            font-size: clamp(1rem, 1.5vw, 1.2rem);
+            border-radius: 50px;
+            border: none;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            transition: var(--transition);
+            box-shadow: 0 6px 20px rgba(251, 133, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .jelajahi-btn::after {
+            content: '';
             position: absolute;
-            background-color: white;
-            min-width: 280px; /* Diperbesar sedikit */
-            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-            z-index: 1;
-            border-radius: 8px;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .jelajahi-btn:hover::after {
+            width: 300px;
+            height: 300px;
+        }
+
+        .jelajahi-btn:hover {
+            background: #e67a00;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(251, 133, 0, 0.4);
+        }
+
+        .jelajahi-btn:active {
+            transform: translateY(-1px);
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: var(--white);
+            min-width: 280px;
+            max-width: 350px;
+            width: max-content;
+            box-shadow: var(--shadow-lg);
+            border-radius: 12px;
             overflow: hidden;
             top: 100%;
             left: 50%;
             transform: translateX(-50%);
-            margin-top: 10px;
-            text-align: left;
+            margin-top: 15px;
+            z-index: 1001;
+            animation: fadeIn 0.3s ease forwards;
         }
 
         .dropdown-content a {
-            color: #223259;
-            padding: 12px 16px;
+            color: var(--secondary-blue);
+            padding: 16px 24px;
             text-decoration: none;
-            display: block;
-            font-weight: normal;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-weight: 500;
+            transition: var(--transition);
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .dropdown-content a:last-child {
+            border-bottom: none;
         }
 
         .dropdown-content a:hover {
-            background-color: #f1f1f1;
-            color: #fb8500;
+            background-color: rgba(251, 133, 0, 0.1);
+            color: var(--accent-orange);
+            padding-left: 30px;
         }
-        
-        /* Fitur Unggulan Section */
-        .fitur-unggulan {
-            padding: 80px 5%; /* Padding yang konsisten dengan about-page-1 */
+
+        .dropdown-content a i {
+            width: 20px;
             text-align: center;
-            background: #f9f9f9; /* Memberi sedikit pembeda dari hero */
+            font-size: 1.1em;
+        }
+
+        /* ================================================= */
+        /* FEATURES SECTION - TETAP SAMA (Konsisten) */
+        /* ================================================= */
+        .fitur-unggulan {
+            padding: clamp(60px, 8vw, 100px) 5%;
+            text-align: center;
+            background: var(--light-gray);
         }
 
         .fitur-unggulan h2 {
-            font-size: 2em;
-            margin-bottom: 40px;
-            color: #073b80; /* Warna biru utama */
+            font-size: clamp(1.8rem, 4vw, 2.8rem);
+            margin-bottom: clamp(30px, 5vw, 60px);
+            color: var(--primary-blue);
+            position: relative;
+            display: inline-block;
+        }
+
+        .fitur-unggulan h2::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background-color: var(--accent-orange);
+            border-radius: 2px;
         }
 
         .fitur-cards {
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            flex-wrap: wrap;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: clamp(20px, 4vw, 35px);
+            justify-items: center;
         }
 
         .card {
-            background: white;
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-            width: 300px;
+            background: var(--white);
+            padding: clamp(25px, 4vw, 40px) clamp(20px, 3vw, 30px);
+            border-radius: 20px;
+            box-shadow: var(--shadow-md);
+            width: 100%;
+            max-width: 400px;
             text-align: center;
-            transition: all 0.3s ease; 
+            transition: var(--transition);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: var(--gradient-orange);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.5s ease;
+        }
+
+        .card:hover::before {
+            transform: scaleX(1);
         }
 
         .card:hover {
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25); 
-            transform: translateY(-5px); 
-            cursor: pointer;
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-lg);
         }
 
         .card i {
-            font-size: 2.5em; /* Ikon lebih besar */
-            color: #073b80;
-            margin-bottom: 15px;
-            transition: color 0.3s ease;
+            font-size: clamp(2.5rem, 5vw, 3.5rem);
+            color: var(--primary-blue);
+            margin-bottom: 25px;
+            transition: var(--transition);
         }
 
         .card:hover i {
-            color: #fb8500; 
+            color: var(--accent-orange);
+            transform: scale(1.1);
         }
+
         .card h4 {
-            color: #223259;
-            margin-bottom: 10px;
+            color: var(--secondary-blue);
+            margin-bottom: 15px;
+            font-size: clamp(1.2rem, 2.5vw, 1.6rem);
+            font-weight: 600;
         }
+
         .card p {
-            color: #555;
-            line-height: 1.6;
+            color: var(--dark-gray);
+            line-height: 1.7;
+            font-size: clamp(0.95rem, 1.5vw, 1.1rem);
+            flex-grow: 1;
         }
 
-        /* --- FOOTER SECTION (Replikasi dari tentang.html) --- */
-        .footer {
-            background: #223259;
+        /* ================================================= */
+        /* FOOTER - DIGANTI MENGGUNAKAN DESAIN DARI TENTANG */
+        /* ================================================= */
+        .footer-section {
+            background: linear-gradient(135deg, var(--secondary-blue) 0%, #16213e 100%);
+            padding: 70px 5% 30px;
             color: white;
-            padding: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .footer-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: var(--gradient-orange);
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            gap: 50px;
+            flex-wrap: wrap;
+            padding-bottom: 40px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            z-index: 1;
+        }
+
+        .footer-left {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .footer-left h4 {
+            font-size: 1.6rem;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-weight: 700;
+        }
+
+        .footer-left h4 img {
+            height: 40px;
+            border-radius: 8px;
+        }
+
+        .footer-left p {
+            font-size: 1.05rem;
+            line-height: 1.8;
+            opacity: 0.9;
+            max-width: 500px;
+            margin-bottom: 25px;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: none;
+            font-size: 0.95rem;
+            margin-right: 20px;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .footer-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent-orange);
+            transition: width 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-orange);
+        }
+
+        .footer-links a:hover::after {
+            width: 100%;
+        }
+
+        .footer-right {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .footer-right h4 {
+            font-size: 1.4rem;
+            color: white;
+            margin-bottom: 25px;
+            font-weight: 600;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            transition: var(--transition);
+            padding: 8px 0;
+        }
+
+        .contact-item:hover {
+            transform: translateX(10px);
+        }
+
+        .contact-item i {
+            font-size: 1.2rem;
+            color: var(--accent-orange);
+            margin-right: 15px;
+            width: 25px;
             text-align: center;
-            margin-top: 50px;
+        }
+
+        .contact-item a {
+            text-decoration: none;
+            color: rgba(255, 255, 255, 0.9);
+            transition: var(--transition);
+        }
+
+        .contact-item a:hover {
+            color: var(--accent-orange);
+        }
+
+        .footer-copyright {
+            text-align: center;
+            padding-top: 30px;
+            font-size: 0.95rem;
+            opacity: 0.8;
+            position: relative;
+            z-index: 1;
         }
 
         /* ================================================= */
-        /* RESPONSIVE DAN HAMBURGER MENU */
+        /* RESPONSIVE DESIGN - DISESUAIKAN DENGAN NAVBAR BARU */
         /* ================================================= */
 
-        .menu-toggle {
-            display: none;
-            font-size: 1.8em;
-            color: #073b80;
-            cursor: pointer;
-            margin-left: auto; 
-        }
-
-        @media (max-width: 900px) {
+        /* Tablets */
+        @media (max-width: 768px) {
+            .navbar {
+                height: 75px;
+                top: 10px;
+            }
+            
             .navbar-container {
-                flex-wrap: wrap;
-                padding: 10px 20px;
-                height: auto;
+                padding: 0 20px;
             }
-
-            .nav-left {
-                width: 100%;
-                justify-content: space-between; 
-            }
-            /* Memisahkan logo/teks dari toggle di mobile */
-            .nav-left > div:first-child { 
-                display: flex;
-                align-items: center;
-            }
-
-            .nav-menu {
-                width: 100%;
-                flex-direction: column;
-                align-items: center;
-                gap: 15px;
-                margin-top: 15px;
-                display: none; /* Sembunyikan default */
-            }
-
-            .nav-menu.active {
-                display: flex; /* Tampilkan saat aktif */
-            }
-
+            
             .menu-toggle {
                 display: block;
-                margin-left: 0;
+            }
+            
+            .nav-menu {
+                position: fixed;
+                top: 75px;
+                left: 0;
+                width: 100%;
+                background: var(--white);
+                flex-direction: column;
+                align-items: stretch;
+                gap: 0;
+                padding: 20px 0;
+                box-shadow: var(--shadow-lg);
+                transform: translateY(-100%);
+                opacity: 0;
+                visibility: hidden;
+                transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+                z-index: 999;
+                max-height: calc(100vh - 75px);
+                overflow-y: auto;
+            }
+            
+            .nav-menu.active {
+                transform: translateY(0);
+                opacity: 1;
+                visibility: visible;
+            }
+            
+            .nav-menu a, .nav-dropdown > a {
+                width: 100%;
+                padding: 18px 25px;
+                border-bottom: 1px solid #f0f0f0;
+                font-size: 1.1rem;
+                justify-content: flex-start;
+            }
+            
+            .kelurahan-dropdown {
+                position: static;
+                box-shadow: none;
+                background-color: #f8f9fa;
+                border-radius: 0;
+                width: 100%;
+                margin-top: 0;
+                animation: none;
+                opacity: 1;
+                transform: none;
+                display: none;
+            }
+            
+            .kelurahan-dropdown a {
+                padding: 15px 25px 15px 40px;
+                font-size: 1rem;
+            }
+            
+            .nav-dropdown.active .kelurahan-dropdown {
+                display: block;
             }
             
             .hero-section {
-                height: 500px;
+                min-height: calc(100vh - 80px);
+                padding-top: 90px;
             }
-
+            
             .hero-content h1 {
-                font-size: 2.2em;
+                font-size: 2.2rem;
             }
+            
             .hero-content p {
-                font-size: 1em;
+                font-size: 1.1rem;
             }
-
-            .footer-left, .footer-right {
-                flex-basis: 100%;
+            
+            .fitur-cards {
+                grid-template-columns: 1fr;
+                max-width: 500px;
+                margin: 0 auto;
             }
         }
-        
+
+        /* Mobile Phones */
+        @media (max-width: 480px) {
+            .navbar {
+                height: 70px;
+                top: 8px;
+            }
+            
+            .navbar-container {
+                height: 60px;
+                padding: 0 15px;
+            }
+            
+            .logo {
+                height: 35px;
+            }
+            
+            .nav-left span {
+                font-size: 1rem;
+            }
+            
+            .content {
+                margin-top: 90px;
+            }
+            
+            .hero-section {
+                min-height: calc(100vh - 70px);
+                padding: 15px;
+                padding-top: 85px;
+            }
+            
+            .hero-content {
+                width: 95%;
+                padding: 15px;
+            }
+            
+            .hero-content h1 {
+                font-size: 1.8rem;
+                margin-bottom: 20px;
+            }
+            
+            .hero-content p {
+                font-size: 1rem;
+                margin-bottom: 30px;
+            }
+            
+            .jelajahi-btn {
+                padding: 14px 28px;
+                font-size: 1rem;
+            }
+            
+            .dropdown-content {
+                min-width: 260px;
+                left: 0;
+                transform: translateX(0);
+            }
+            
+            .fitur-unggulan {
+                padding: 50px 15px;
+            }
+            
+            .card {
+                padding: 25px 20px;
+            }
+            
+            .footer-content {
+                flex-direction: column;
+                gap: 30px;
+            }
+            
+            .footer-left, .footer-right {
+                min-width: 100%;
+            }
+        }
+
+        /* ... (Media queries lainnya seperti Very Small Phones, Touch Device, dll. tetap sama seperti kode asli Beranda Anda) ... */
+
     </style>
 </head>
 
 <body>
+    <!-- Loading Animation (Diambil dari Halaman Tentang) -->
+    <div class="loader" id="loader"></div>
 
-    <header class="navbar">
+    <header class="navbar" id="navbar">
         <div class="navbar-container">
             <div class="nav-left">
                 <div style="display: flex; align-items: center;">
-                    <img src="Logo_Banyumas.png" class="logo" alt="Logo Banyumas"/>
+                    <img src="Logo_Banyumas.png" class="logo" alt="Logo Banyumas" loading="lazy"/>
                     <span>Geoportal Purwokerto Timur</span>
                 </div>
-                <div class="menu-toggle" id="menuToggle">
+                <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation menu" aria-expanded="false">
                     <i class="fas fa-bars"></i>
-                </div>
+                </button>
             </div>
 
-            <nav class="nav-menu">
-                <a href="../Beranda/"><i class="fas fa-home"></i> Beranda</a>
-                <a href="../Purwokerto_timur/"><i class="fas fa-map"></i> Peta Purwokerto Timur</a>
-                <a href="../Mersi/"><i class="fas fa-map-marked-alt"></i> Peta Kelurahan Mersi</a>
-                <a href="../Tentang/"><i class="fas fa-info-circle"></i> Tentang</a>
+            <nav class="nav-menu" id="navMenu" aria-label="Main navigation">
+                <a href="index.html" class="active" aria-current="page">
+                    <i class="fas fa-home"></i> Beranda
+                </a>
+                <a href="../Purwokerto_timur/index.html">
+                    <i class="fas fa-map"></i> Peta Purwokerto Timur
+                </a>
+                
+                <!-- DROPDOWN KELURAHAN -->
+                <div class="nav-dropdown" id="kelurahanDropdown">
+                    <a href="#kelurahan" id="kelurahanToggle" aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-map-marked-alt"></i> Peta Kelurahan <i class="fas fa-chevron-down"></i>
+                    </a>
+                    <div class="kelurahan-dropdown" id="kelurahanMenu" role="menu" aria-labelledby="kelurahanToggle">
+                        <a href="../Mersi/index.html" role="menuitem">
+                            <i class="fas fa-map-pin"></i> Mersi
+                        </a>
+                        <a href="../Arcawinangun/index.html" role="menuitem">
+                            <i class="fas fa-map-pin"></i> Arcawinangun
+                        </a>
+                        <a href="../Kranji/index.html" role="menuitem">
+                            <i class="fas fa-map-pin"></i> Kranji
+                        </a>
+                        <a href="../Purwokerto_Wetan/index.html" role="menuitem">
+                            <i class="fas fa-map-pin"></i> Purwokerto Wetan
+                        </a>
+                        <a href="../Sokanegara/index.html" role="menuitem">
+                            <i class="fas fa-map-pin"></i> Sokanegara
+                        </a>
+                        <a href="../Purwokerto_Lor/index.html" role="menuitem">
+                            <i class="fas fa-map-pin"></i> Purwokerto Lor
+                        </a>
+                    </div>
+                </div>
+                
+                <a href="../Tentang/index.html">
+                    <i class="fas fa-info-circle"></i> Tentang
+                </a>
             </nav>
-           
         </div>
     </header>
     
     <div class="content">
         <div class="hero-section">
-            <div class="hero-overlay"></div>
             <div class="hero-content">
                 <h1>Satu Peta untuk Data Spasial Terpadu</h1>
                 <p>Portal ini menyajikan peta interaktif dan data geospasial wilayah Purwokerto Timur untuk perencanaan dan pengembangan wilayah. Akses informasi geografis yang akurat dan terkini.</p>
                 
                 <div class="dropdown">
-                    <span class="jelajahi-btn" id="jelajahi-btn" role="button" aria-haspopup="true" aria-expanded="false">
+                    <button class="jelajahi-btn" id="jelajahi-btn" aria-haspopup="true" aria-expanded="false">
                         Jelajahi Peta <i class="fas fa-arrow-down"></i>
-                    </span>
-                    <div class="dropdown-content" id="peta-dropdown">
-                        <a href="../Purwokerto_timur/"><i class="fas fa-map"></i> Peta Purwokerto Timur</a>
-                        <a href="../Mersi/"><i class="fas fa-map-marked-alt"></i> Peta Kelurahan Mersi</a>
+                    </button>
+                    <div class="dropdown-content" id="peta-dropdown" role="menu" aria-labelledby="jelajahi-btn">
+                        <a href="../Purwokerto_timur/" role="menuitem">
+                            <i class="fas fa-map"></i> Peta Purwokerto Timur
+                        </a>
+                        <a href="../Mersi/" role="menuitem">
+                            <i class="fas fa-map-marked-alt"></i> Peta Kelurahan Mersi
+                        </a>
                     </div>
                 </div>
             </div>
@@ -364,84 +964,305 @@
             <div class="page-container">
                 <h2>⭐ Fitur Unggulan</h2>
                 <div class="fitur-cards">
-                    
-                    <div class="card">
+                    <div class="card" tabindex="0" role="article">
                         <i class="fas fa-layer-group"></i>
                         <h4>Layers Berlapis</h4>
                         <p>Tampilkan lapisan peta seperti batas administrasi, infrastruktur jalan, dan data tematik lainnya secara interaktif.</p>
                     </div>
 
-                    <div class="card">
+                    <div class="card" tabindex="0" role="article">
                         <i class="fas fa-download"></i>
                         <h4>Unduh Data</h4>
                         <p>Data geospasial primer tersedia untuk diunduh dalam berbagai format standar (Shapefile, GeoJSON, atau KML).</p>
                     </div>
                     
-                    <div class="card">
+                    <div class="card" tabindex="0" role="article">
                         <i class="fas fa-search-location"></i>
                         <h4>Pencarian Lokasi</h4>
                         <p>Memudahkan pencarian lokasi spesifik, POI, atau koordinat dengan fungsi geocoding yang cepat.</p>
                     </div>
-
                 </div>
             </div>
         </div>
 
-        <div class="footer">
-            © 2025 Geoportal Purwokerto Timur. Dibangun dengan QGIS dan Leaflet.
+        <!-- Footer Baru (Dari Halaman Tentang) -->
+        <div class="footer-section">
+            <div class="footer-content">
+                <div class="footer-left">
+                    <h4>
+                        <img src="Logo_Banyumas.png" alt="Logo Pwt Timur" loading="lazy"> 
+                        GEOPORTAL PURWOKERTO TIMUR
+                    </h4>
+                    <p>Situs ini merupakan sarana komunikasi dan visualisasi peta dan data Geospasial untuk wilayah Kecamatan Purwokerto Timur, baik untuk kebutuhan Pemerintah Kabupaten Banyumas maupun untuk masyarakat.</p>
+                   
+                    <div class="footer-links">
+                        <a href="#">Syarat Ketentuan</a> 
+                        <a href="#">Kebijakan Privasi</a>
+                        <a href="#">Peta Situs</a>
+                    </div>
+                </div>
+
+                <div class="footer-right">
+                    <h4>Informasi Kontak</h4>
+                   
+                    <div class="contact-item">
+                        <i class="fa fa-envelope"></i>
+                        <a href="mailto:contact@purwokertotimur.go.id">contact@purwokertotimur.go.id</a>
+                    </div>
+                   
+                    <div class="contact-item">
+                        <i class="fa-brands fa-instagram"></i>
+                        <a href="https://instagram.com/purwokertotimur">@purwokertotimur</a>
+                    </div>
+                   
+                    <div class="contact-item">
+                        <i class="fa-brands fa-youtube"></i>
+                        <a href="https://youtube.com">Purwokerto Timur Data</a>
+                    </div>
+                   
+                    <div class="contact-item">
+                        <i class="fa fa-map-marker-alt"></i>
+                        <a href="https://maps.google.com">Kantor Kecamatan Purwokerto Timur</a>
+                    </div>
+                </div>
+            </div>
+           
+            <div class="footer-copyright">
+                © Hak Cipta 2025. Pemerintah Kabupaten Banyumas. Semua hak dilindungi.
+            </div>
         </div>
-        
     </div>
 
-    
-
-
     <script>
-        // --- Hamburger Menu Logic ---
-        const toggle = document.getElementById("menuToggle");
-        const menu = document.querySelector(".nav-menu");
+        // =================================================
+        // ENHANCED JAVASCRIPT - DIGABUNG DENGAN FITUR DARI TENTANG
+        // =================================================
 
-        if (toggle && menu) {
-            toggle.addEventListener("click", () => {
-                menu.classList.toggle("active");
-            });
-        }
-        
-        // --- Dropdown Logic ---
+        // DOM Elements
+        const navbar = document.getElementById('navbar');
+        const menuToggle = document.getElementById('menuToggle');
+        const navMenu = document.getElementById('navMenu');
+        const kelurahanDropdown = document.getElementById('kelurahanDropdown');
+        const kelurahanToggle = document.getElementById('kelurahanToggle');
+        const kelurahanMenu = document.getElementById('kelurahanMenu');
         const jelajahiBtn = document.getElementById('jelajahi-btn');
         const petaDropdown = document.getElementById('peta-dropdown');
+        const loader = document.getElementById('loader'); // Loader baru
 
-        function toggleDropdown() {
-            const isVisible = petaDropdown.style.display === 'block';
+        // Loading Animation (Dari Halaman Tentang)
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                loader.classList.add('hidden');
+            }, 1000);
+        });
+
+        // =================================================
+        // SCROLL EFFECT FOR NAVBAR (Diselaraskan)
+        // =================================================
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // =================================================
+        // MOBILE MENU TOGGLE (Diselaraskan dengan logika Tentang)
+        // =================================================
+        if (menuToggle && navMenu) {
+            menuToggle.addEventListener('click', function(e) {
+                e.stopPropagation();
+                const isExpanded = this.getAttribute('aria-expanded') === 'true';
+                this.setAttribute('aria-expanded', !isExpanded);
+                navMenu.classList.toggle('active');
+                
+                // Toggle hamburger to X icon
+                const icon = this.querySelector('i');
+                icon.classList.toggle('fa-bars');
+                icon.classList.toggle('fa-times');
+                
+                // Prevent body scroll when menu is open
+                document.body.style.overflow = navMenu.classList.contains('active') ? 'hidden' : '';
+            });
+
+            // Close menu when clicking on links
+            const navLinks = navMenu.querySelectorAll('a[href]');
+            navLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    navMenu.classList.remove('active');
+                    menuToggle.setAttribute('aria-expanded', 'false');
+                    const icon = menuToggle.querySelector('i');
+                    icon.classList.remove('fa-times');
+                    icon.classList.add('fa-bars');
+                    document.body.style.overflow = '';
+                });
+            });
+
+            // Close menu when clicking outside
+            document.addEventListener('click', (e) => {
+                if (!navMenu.contains(e.target) && !menuToggle.contains(e.target)) {
+                    navMenu.classList.remove('active');
+                    menuToggle.setAttribute('aria-expanded', 'false');
+                    const icon = menuToggle.querySelector('i');
+                    icon.classList.remove('fa-times');
+                    icon.classList.add('fa-bars');
+                    document.body.style.overflow = '';
+                }
+            });
+        }
+
+        // =================================================
+        // DROPDOWN FUNCTIONS (Tetap menggunakan logika lama Beranda yang sudah baik)
+        // =================================================
+        function toggleDropdown(dropdown, toggleBtn, menu) {
+            const isVisible = menu.style.display === 'block';
             
             if (isVisible) {
-                petaDropdown.style.display = 'none';
-                jelajahiBtn.setAttribute('aria-expanded', 'false');
+                menu.style.display = 'none';
+                toggleBtn.setAttribute('aria-expanded', 'false');
+                if (dropdown) dropdown.classList.remove('active');
             } else {
-                petaDropdown.style.display = 'block';
-                jelajahiBtn.setAttribute('aria-expanded', 'true');
+                // Close other dropdowns first
+                closeAllDropdowns();
+                
+                menu.style.display = 'block';
+                toggleBtn.setAttribute('aria-expanded', 'true');
+                if (dropdown) dropdown.classList.add('active');
             }
         }
 
-        // 1. Pemicu utama saat tombol "Jelajahi Peta" di-klik
-        if (jelajahiBtn) {
-            jelajahiBtn.addEventListener('click', function(e) {
-                e.stopPropagation(); 
-                toggleDropdown();
+        function closeAllDropdowns() {
+            if (kelurahanMenu && kelurahanMenu.style.display === 'block') {
+                kelurahanMenu.style.display = 'none';
+                kelurahanDropdown.classList.remove('active');
+                kelurahanToggle.setAttribute('aria-expanded', 'false');
+            }
+            if (petaDropdown && petaDropdown.style.display === 'block') {
+                petaDropdown.style.display = 'none';
+                jelajahiBtn.setAttribute('aria-expanded', 'false');
+            }
+        }
+
+        // Kelurahan Dropdown
+        if (kelurahanToggle && kelurahanMenu) {
+            kelurahanToggle.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                toggleDropdown(kelurahanDropdown, this, kelurahanMenu);
             });
         }
 
-        // 2. Menutup dropdown jika klik di luar area dropdown/tombol
-        document.addEventListener('click', function(e) {
-            if (petaDropdown && jelajahiBtn) {
-                if (!petaDropdown.contains(e.target) && e.target !== jelajahiBtn) {
-                    if (petaDropdown.style.display === 'block') {
-                        petaDropdown.style.display = 'none';
-                        jelajahiBtn.setAttribute('aria-expanded', 'false');
-                    }
+        // Jelajahi Peta Dropdown
+        if (jelajahiBtn && petaDropdown) {
+            jelajahiBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                toggleDropdown(null, this, petaDropdown);
+            });
+        }
+
+        // Close dropdowns when clicking outside
+        document.addEventListener('click', (e) => {
+            if (kelurahanDropdown && !kelurahanDropdown.contains(e.target)) {
+                if (kelurahanMenu.style.display === 'block') {
+                    kelurahanMenu.style.display = 'none';
+                    kelurahanDropdown.classList.remove('active');
+                    kelurahanToggle.setAttribute('aria-expanded', 'false');
+                }
+            }
+            
+            if (petaDropdown && !jelajahiBtn.contains(e.target) && !petaDropdown.contains(e.target)) {
+                if (petaDropdown.style.display === 'block') {
+                    petaDropdown.style.display = 'none';
+                    jelajahiBtn.setAttribute('aria-expanded', 'false');
                 }
             }
         });
+
+        // Close dropdowns with Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeAllDropdowns();
+                // Also close mobile menu if open
+                if (navMenu && navMenu.classList.contains('active')) {
+                    navMenu.classList.remove('active');
+                    menuToggle.setAttribute('aria-expanded', 'false');
+                    const icon = menuToggle.querySelector('i');
+                    icon.classList.remove('fa-times');
+                    icon.classList.add('fa-bars');
+                    document.body.style.overflow = '';
+                }
+            }
+        });
+
+        // =================================================
+        // RESPONSIVE BEHAVIOR ON RESIZE (Diselaraskan)
+        // =================================================
+        let resizeTimeout;
+        window.addEventListener('resize', () => {
+            clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(() => {
+                // Reset mobile menu on desktop
+                if (window.innerWidth > 768) {
+                    if (navMenu) {
+                        navMenu.classList.remove('active');
+                        navMenu.style.display = '';
+                    }
+                    if (menuToggle) {
+                        menuToggle.setAttribute('aria-expanded', 'false');
+                        const icon = menuToggle.querySelector('i');
+                        icon.classList.remove('fa-times');
+                        icon.classList.add('fa-bars');
+                    }
+                    document.body.style.overflow = '';
+                    
+                    // Reset dropdowns
+                    closeAllDropdowns();
+                }
+                
+                // Adjust dropdown positions for mobile
+                if (window.innerWidth <= 768 && kelurahanMenu) {
+                    kelurahanMenu.style.position = 'static';
+                    kelurahanMenu.style.transform = 'none';
+                    kelurahanMenu.style.left = 'auto';
+                }
+            }, 250);
+        });
+
+        // =================================================
+        // ACTIVE LINK HIGHLIGHTING (Tetap sama)
+        // =================================================
+        function setActiveLink() {
+            const currentPath = window.location.pathname;
+            const navLinks = document.querySelectorAll('.nav-menu a[href]');
+            
+            navLinks.forEach(link => {
+                const linkPath = new URL(link.href, window.location.origin).pathname;
+                if (currentPath === linkPath || 
+                   (currentPath.endsWith('/') && currentPath + 'index.html' === linkPath) ||
+                   (!currentPath.endsWith('/') && currentPath === linkPath.replace('/index.html', ''))) {
+                    link.classList.add('active');
+                    link.setAttribute('aria-current', 'page');
+                } else {
+                    link.classList.remove('active');
+                    link.removeAttribute('aria-current');
+                }
+            });
+        }
+
+        // =================================================
+        // INITIALIZATION
+        // =================================================
+        document.addEventListener('DOMContentLoaded', () => {
+            setActiveLink();
+            
+            // Set initial states
+            if (window.innerWidth <= 768) {
+                if (kelurahanMenu) kelurahanMenu.style.display = 'none';
+                if (petaDropdown) petaDropdown.style.display = 'none';
+            }
+        });
+
     </script>
 
 </body>
