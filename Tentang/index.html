@@ -2,227 +2,701 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes" />
     <title>Tentang Kami | Geoportal Purwokerto Timur</title>
     
     <link rel="icon" href="Logo_Banyumas.png" type="image/png">
-   
-    <link rel="stylesheet" href="style.css"> 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
    
     <style>
         /* ================================================= */
-        /* FONT GLOBAL REPLACEMENT */
+        /* VARIABLES & RESET */
         /* ================================================= */
-        body {
-            font-family: 'Poppins', sans-serif; /* Menerapkan Poppins sebagai font utama */
+        :root {
+            --primary-blue: #073b80;
+            --secondary-blue: #223259;
+            --accent-orange: #fb8500;
+            --accent-light: #ffb347;
+            --light-gray: #f8fafc;
+            --white: #ffffff;
+            --dark-gray: #555555;
+            --shadow-sm: 0 2px 10px rgba(0, 0, 0, 0.08);
+            --shadow-md: 0 4px 20px rgba(0, 0, 0, 0.15);
+            --shadow-lg: 0 10px 40px rgba(0, 0, 0, 0.2);
+            --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            --gradient-blue: linear-gradient(135deg, #073b80 0%, #223259 100%);
+            --gradient-orange: linear-gradient(135deg, #fb8500 0%, #ffb347 100%);
         }
-        /* ================================================= */
-        /* CSS KHUSUS TENTANG - NEW FULL-PAGE LAYOUT */
-        /* ================================================= */
 
-        /* Navbar & Global Fixes */
-        .content { margin-top: 100px; padding: 0; } /* Padding dan Margin dihilangkan untuk full width */
-        .page-container { max-width: 1200px; margin: 0 auto; padding: 0 5%; }
-       
-        /* ---------------------------------------------------- */
-        /* PAGE 1: TENTANG GEOPORTAL (Mirip Jakarta Satu Page) */
-        /* ---------------------------------------------------- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.7;
+            color: #333;
+            background-color: #ffffff;
+            overflow-x: hidden;
+        }
+
+        /* ================================================= */
+        /* ENHANCED NAVBAR WITH DROPDOWN */
+        /* ================================================= */
+        .navbar {
+            width: 100%;
+            height: 85px;
+            background: transparent;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: fixed;
+            top: 15px;
+            left: 0;
+            z-index: 1000;
+            padding: 0 15px;
+            transition: var(--transition);
+        }
+
+        .navbar.scrolled {
+            top: 10px;
+            height: 75px;
+        }
+
+        .navbar-container {
+            width: 98%;
+            max-width: 1500px;
+            height: 70px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 50px;
+            box-shadow: var(--shadow-md);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 25px;
+            transition: var(--transition);
+        }
+
+        .navbar.scrolled .navbar-container {
+            background: rgba(255, 255, 255, 0.98);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo {
+            height: 40px;
+            width: auto;
+            transition: var(--transition);
+        }
+
+        .nav-left span {
+            font-weight: 700;
+            color: var(--secondary-blue);
+            font-size: 1.1rem;
+            white-space: nowrap;
+        }
+
+        /* Navigation Menu */
+        .nav-menu {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            list-style: none;
+        }
+
+        .nav-menu a, .nav-dropdown > a {
+            color: var(--primary-blue);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            padding: 8px 0;
+            position: relative;
+            transition: var(--transition);
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-menu a:hover, .nav-dropdown > a:hover,
+        .nav-menu a.active, .nav-dropdown.active > a {
+            color: var(--accent-orange);
+        }
+
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent-orange);
+            transition: width 0.3s ease;
+        }
+
+        .nav-menu a:hover::after,
+        .nav-menu a.active::after {
+            width: 100%;
+        }
+
+        /* Dropdown Kelurahan */
+        .nav-dropdown {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .nav-dropdown > a {
+            cursor: pointer;
+            padding-right: 5px;
+        }
+        
+        .nav-dropdown > a i.fa-chevron-down {
+            font-size: 0.8em;
+            transition: transform 0.3s ease;
+        }
+        
+        .nav-dropdown.active > a i.fa-chevron-down {
+            transform: rotate(180deg);
+        }
+        
+        .kelurahan-dropdown {
+            display: none;
+            position: absolute;
+            top: calc(100% + 10px);
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: var(--white);
+            min-width: 200px;
+            width: max-content;
+            max-width: 250px;
+            box-shadow: var(--shadow-lg);
+            border-radius: 15px;
+            overflow: hidden;
+            z-index: 1001;
+            opacity: 0;
+            animation: fadeIn 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateX(-50%) translateY(-15px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(-50%) translateY(0);
+            }
+        }
+        
+        .kelurahan-dropdown a {
+            color: var(--secondary-blue);
+            padding: 15px 20px;
+            text-decoration: none;
+            display: block;
+            font-weight: 500;
+            font-size: 0.95rem;
+            border-bottom: 1px solid rgba(241, 241, 241, 0.8);
+            transition: all 0.3s ease;
+        }
+        
+        .kelurahan-dropdown a:last-child {
+            border-bottom: none;
+        }
+        
+        .kelurahan-dropdown a:hover {
+            background-color: rgba(251, 133, 0, 0.1);
+            color: var(--accent-orange);
+            padding-left: 25px;
+            transform: translateX(5px);
+        }
+        
+        .kelurahan-dropdown a i {
+            margin-right: 10px;
+            width: 18px;
+            text-align: center;
+            font-size: 0.9em;
+        }
+
+        .menu-toggle {
+            display: none;
+            font-size: 1.5rem;
+            color: var(--primary-blue);
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 10px;
+            border-radius: 10px;
+            transition: var(--transition);
+        }
+
+        .menu-toggle:hover {
+            background-color: rgba(7, 59, 128, 0.1);
+        }
+
+        /* ================================================= */
+        /* CONTENT AREA */
+        /* ================================================= */
+        .content {
+            margin-top: 100px;
+            padding: 0;
+            width: 100%;
+            animation: fadeInContent 0.8s ease-out;
+        }
+
+        @keyframes fadeInContent {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .page-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 5%;
+        }
+
+        /* ================================================= */
+        /* BACK LINK */
+        /* ================================================= */
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--primary-blue);
+            text-decoration: none;
+            font-weight: 600;
+            margin-bottom: 40px;
+            padding: 10px 20px;
+            background: rgba(7, 59, 128, 0.05);
+            border-radius: 50px;
+            transition: var(--transition);
+            animation: slideInLeft 0.8s ease-out;
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .back-link:hover {
+            background: rgba(7, 59, 128, 0.1);
+            transform: translateX(-5px);
+        }
+
+        /* ================================================= */
+        /* PAGE 1: ABOUT SECTION - ENHANCED */
+        /* ================================================= */
         .about-page-1 {
             padding: 80px 0;
-            background: white;
+            background: linear-gradient(135deg, #f8fafc 0%, #ffffff 100%);
+            position: relative;
+            overflow: hidden;
         }
+
+        .about-page-1::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 300px;
+            height: 300px;
+            background: linear-gradient(135deg, rgba(251, 133, 0, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+            transform: translate(30%, -30%);
+        }
+
         .about-header {
             text-align: center;
             margin-bottom: 60px;
+            animation: fadeInUp 1s ease-out;
         }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
         .about-header h1 {
-            font-size: 2.5em;
-            color: #073b80;
-            margin-bottom: 5px;
+            font-size: 3.2rem;
+            color: var(--primary-blue);
+            margin-bottom: 10px;
+            font-weight: 800;
+            background: var(--gradient-blue);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
+
         .about-header hr {
             width: 120px;
-            height: 4px;
-            background-color: #fb8500;
+            height: 5px;
+            background: var(--gradient-orange);
             border: none;
-            margin: 10px auto 0;
+            margin: 15px auto;
+            border-radius: 10px;
+            animation: expandWidth 1.2s ease-out 0.5s both;
         }
-       
-        /* Konten 2 Kolom */
+
+        @keyframes expandWidth {
+            from { width: 0; }
+            to { width: 120px; }
+        }
+
+        /* Content Grid with Animation */
         .about-content-grid {
             display: flex;
-            align-items: flex-start;
-            gap: 50px;
-            line-height: 1.8;
+            align-items: center;
+            gap: 60px;
+            animation: fadeInUp 1s ease-out 0.3s both;
         }
+
         .about-visual-left {
             flex: 1;
             text-align: center;
-            padding-top: 20px;
+            position: relative;
         }
+
         .about-visual-left img {
-            max-width: 250px;
+            max-width: 280px;
             height: auto;
-            opacity: 0.9;
+            border-radius: 25px;
+            box-shadow: var(--shadow-lg);
+            transform: perspective(1000px) rotateY(-10deg);
+            transition: var(--transition);
+            animation: float 6s ease-in-out infinite;
         }
+
+        @keyframes float {
+            0%, 100% { transform: perspective(1000px) rotateY(-10deg) translateY(0); }
+            50% { transform: perspective(1000px) rotateY(-10deg) translateY(-20px); }
+        }
+
+        .about-visual-left img:hover {
+            transform: perspective(1000px) rotateY(0deg) scale(1.05);
+            box-shadow: 0 20px 50px rgba(7, 59, 128, 0.3);
+        }
+
         .about-text-right {
             flex: 2;
             text-align: justify;
         }
+
         .about-text-right p {
-            margin-bottom: 20px;
+            margin-bottom: 25px;
+            font-size: 1.1rem;
+            color: #444;
+            line-height: 1.8;
         }
-       
-        /* ---------------------------------------------------- */
-        /* PAGE 2: DEVELOPER/PENGEMBANG */
-        /* ---------------------------------------------------- */
+
+        .about-text-right h3 {
+            color: var(--primary-blue);
+            margin: 35px 0 20px;
+            font-size: 1.8rem;
+            font-weight: 700;
+            position: relative;
+            padding-left: 20px;
+        }
+
+        .about-text-right h3::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 8px;
+            height: 30px;
+            background: var(--accent-orange);
+            border-radius: 4px;
+        }
+
+        .about-text-right ul {
+            list-style: none;
+            padding-left: 25px;
+        }
+
+        .about-text-right ul li {
+            margin-bottom: 15px;
+            padding-left: 30px;
+            position: relative;
+            color: #555;
+            font-size: 1.05rem;
+        }
+
+        .about-text-right ul li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--accent-orange);
+            font-weight: bold;
+            font-size: 1.2rem;
+            background: rgba(251, 133, 0, 0.1);
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* ================================================= */
+        /* PAGE 2: DEVELOPER SECTION - ENHANCED */
+        /* ================================================= */
         .developer-section {
-            padding: 80px 0;
-            background: #f4f7f9;
-            text-align: center;
+            padding: 100px 0;
+            background: linear-gradient(135deg, #ffffff 0%, #f0f7ff 100%);
+            position: relative;
+            overflow: hidden;
         }
+
+        .developer-section::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 400px;
+            height: 400px;
+            background: linear-gradient(135deg, rgba(7, 59, 128, 0.05) 0%, transparent 70%);
+            border-radius: 50%;
+            transform: translate(-30%, 30%);
+        }
+
         .developer-card {
-            background: white;
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            max-width: 500px;
-            margin: 30px auto;
+            background: var(--white);
+            padding: 50px;
+            border-radius: 25px;
+            box-shadow: var(--shadow-lg);
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+            animation: cardSlideUp 1s cubic-bezier(0.4, 0, 0.2, 1) 0.6s both;
+            transition: var(--transition);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
         }
-        .developer-card img {
-            /* STYLING FOTO PENGEMBANG: Lingkaran Sempurna dengan Border Biru */
-            width: 150px;
-            height: 150px;
+
+        @keyframes cardSlideUp {
+            from {
+                opacity: 0;
+                transform: translateY(60px) scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .developer-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.2);
+        }
+
+        .developer-card img.avatar {
+            width: 180px;
+            height: 180px;
             border-radius: 50%;
             object-fit: cover;
-            margin-bottom: 15px;
-            border: 4px solid #073b80;
+            margin-bottom: 25px;
+            border: 6px solid var(--white);
+            box-shadow: 0 10px 30px rgba(7, 59, 128, 0.2);
+            transition: var(--transition);
+            animation: avatarPulse 2s ease-in-out infinite;
         }
+
+        @keyframes avatarPulse {
+            0%, 100% { box-shadow: 0 10px 30px rgba(7, 59, 128, 0.2); }
+            50% { box-shadow: 0 15px 40px rgba(7, 59, 128, 0.3); }
+        }
+
+        .developer-card img.avatar:hover {
+            transform: scale(1.05);
+            border-color: var(--accent-orange);
+        }
+
         .developer-card h4 {
-            color: #223259;
-            font-size: 1.5em;
-            margin-bottom: 5px;
-        }
-        .developer-card p {
-            color: #555;
-            margin-bottom: 5px;
-        }
-        /* STYLING LOGO INSTANSI */
-        .developer-card .instansi-logo {
-            margin-top: 20px;
-            max-height: 70px;
-            width: auto;
-            border-radius: 0;
-            border: none;
-            box-shadow: none;
-            opacity: 1;
-        }
-
-        /* ---------------------------------------------------- */
-        /* PAGE 3: TEKNOLOGI */
-        /* ---------------------------------------------------- */
-        .teknologi-page-3 {
-            padding: 80px 0;
-            background: white;
-            text-align: center;
-        }
-        .teknologi-page-3 h2 {
-            font-size: 2em;
-            color: #073b80;
-            margin-bottom: 40px;
-        }
-        .teknologi-cards {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 20px;
-        }
-        .teknologi-card {
-            background: #fff;
-            padding: 20px 10px;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            width: 150px; 
-            text-align: center;
-        }
-        .teknologi-card i {
-            font-size: 3em;
+            color: var(--primary-blue);
+            font-size: 2rem;
             margin-bottom: 10px;
+            font-weight: 700;
         }
-        .teknologi-card h4 {
-            font-size: 1em;
-            color: #223259;
-        }
-        .teknologi-card p {
-            font-size: 0.85em;
+
+        .developer-card p {
             color: #666;
+            margin-bottom: 8px;
+            font-size: 1.1rem;
         }
 
-        /* --- STYLING NAVBAR OVAL (Fixes: Logo Size, No Crop) --- */
-        .navbar {
-            width: 100%; 
-            height: 100px; 
-            background: transparent; 
-            display: flex;
-            align-items: center; 
-            justify-content: center; 
-            position: fixed; 
+        .developer-card hr {
+            width: 80px;
+            height: 3px;
+            background: var(--gradient-orange);
+            border: none;
+            margin: 25px auto;
+            border-radius: 10px;
+            opacity: 0.8;
+        }
+
+        .developer-card .instansi-logo {
+            margin-top: 25px;
+            max-height: 80px;
+            width: auto;
+            filter: grayscale(0.2);
+            transition: var(--transition);
+        }
+
+        .developer-card .instansi-logo:hover {
+            filter: grayscale(0);
+            transform: scale(1.05);
+        }
+
+        /* ================================================= */
+        /* PAGE 3: TECHNOLOGY SECTION - ENHANCED */
+        /* ================================================= */
+        .teknologi-page-3 {
+            padding: 100px 0;
+            background: linear-gradient(135deg, #f8fafc 0%, #ffffff 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .teknologi-page-3 h2 {
+            font-size: 2.8rem;
+            color: var(--primary-blue);
+            margin-bottom: 60px;
+            text-align: center;
+            font-weight: 800;
+            background: var(--gradient-blue);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .teknologi-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            justify-items: center;
+        }
+
+        .teknologi-card {
+            background: var(--white);
+            padding: 40px 25px;
+            border-radius: 20px;
+            box-shadow: var(--shadow-md);
+            text-align: center;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            animation: fadeInUp 1s ease-out;
+            animation-fill-mode: both;
+        }
+
+        .teknologi-card:nth-child(1) { animation-delay: 0.1s; }
+        .teknologi-card:nth-child(2) { animation-delay: 0.2s; }
+        .teknologi-card:nth-child(3) { animation-delay: 0.3s; }
+        .teknologi-card:nth-child(4) { animation-delay: 0.4s; }
+        .teknologi-card:nth-child(5) { animation-delay: 0.5s; }
+        .teknologi-card:nth-child(6) { animation-delay: 0.6s; }
+
+        .teknologi-card::before {
+            content: '';
+            position: absolute;
             top: 0;
-            z-index: 999; 
-            padding-top: 0; 
-        }
-        .navbar-container {
-            width: 98%; 
-            max-width: 1500px; 
-            height: 70px; 
-            background: rgba(255, 255, 255, 0.9); 
-            border-radius: 50px; 
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-            backdrop-filter: blur(8px); 
-            -webkit-backdrop-filter: blur(8px); 
-            display: flex; 
-            align-items: center; 
-            justify-content: space-between; 
-            padding: 0 30px;
-        }
-       
-        .nav-left { 
-            display: flex; 
-            align-items: center; 
-            z-index: 1000; 
-            /* Fix: Mengatur logo dan teks dalam satu baris dengan ukuran lebih kecil */
-        }
-        .logo { 
-            height: 40px; /* Logo lebih kecil */
-            margin-right: 10px; 
-        }
-        .nav-left span { 
-            font-weight: bold; 
-            color: #223259; 
-            font-size: 1em; /* Teks nama geoportal lebih kecil */
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: var(--gradient-orange);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.6s ease;
         }
 
-        .nav-menu { 
-            display: flex; 
-            gap: 30px; 
-        }
-        .nav-menu a { 
-            color: #073b80; 
-            padding: 2px 0; 
-            text-decoration: none; 
-            font-weight: 600; 
-        }
-        .nav-menu a:hover { 
-            color: #fb8500; 
+        .teknologi-card:hover::before {
+            transform: scaleX(1);
         }
 
-        /* --- FOOTER SECTION --- */
+        .teknologi-card:hover {
+            transform: translateY(-15px) scale(1.03);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .teknologi-card i {
+            font-size: 3.5rem;
+            margin-bottom: 25px;
+            display: inline-block;
+            transition: var(--transition);
+        }
+
+        .teknologi-card:hover i {
+            transform: scale(1.2) rotate(5deg);
+        }
+
+        .teknologi-card h4 {
+            font-size: 1.4rem;
+            color: var(--primary-blue);
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .teknologi-card p {
+            color: var(--dark-gray);
+            line-height: 1.7;
+            font-size: 1rem;
+        }
+
+        /* ================================================= */
+        /* ENHANCED FOOTER */
+        /* ================================================= */
         .footer-section {
-            background: linear-gradient(to top, #eaf2ff 0%, #e0f0ff 100%);
-            padding: 40px 5%; 
-            color: #333;
-            width: 100%;
+            background: linear-gradient(135deg, var(--secondary-blue) 0%, #16213e 100%);
+            padding: 70px 5% 30px;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .footer-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: var(--gradient-orange);
         }
 
         .footer-content {
@@ -230,226 +704,400 @@
             margin: 0 auto;
             display: flex;
             justify-content: space-between;
-            gap: 40px;
+            gap: 50px;
             flex-wrap: wrap;
-            padding-bottom: 30px;
-            border-bottom: 1px solid #d0e0f0;
+            padding-bottom: 40px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            z-index: 1;
         }
 
         .footer-left {
-            flex-basis: 50%; 
+            flex: 1;
+            min-width: 300px;
         }
 
         .footer-left h4 {
-            font-size: 1.5em;
-            color: #073b80;
-            margin-bottom: 15px;
+            font-size: 1.6rem;
+            margin-bottom: 20px;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 15px;
+            font-weight: 700;
         }
 
-        .footer-left img {
-            height: 35px;
+        .footer-left h4 img {
+            height: 40px;
+            border-radius: 8px;
         }
 
         .footer-left p {
-            font-size: 0.95em;
-            line-height: 1.6;
+            font-size: 1.05rem;
+            line-height: 1.8;
+            opacity: 0.9;
             max-width: 500px;
+            margin-bottom: 25px;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: none;
+            font-size: 0.95rem;
+            margin-right: 20px;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .footer-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent-orange);
+            transition: width 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-orange);
+        }
+
+        .footer-links a:hover::after {
+            width: 100%;
         }
 
         .footer-right {
-            flex-basis: 40%;
+            flex: 1;
+            min-width: 300px;
         }
 
         .footer-right h4 {
-            font-size: 1.2em;
-            color: #223259;
-            margin-bottom: 20px;
+            font-size: 1.4rem;
+            color: white;
+            margin-bottom: 25px;
+            font-weight: 600;
         }
 
         .contact-item {
             display: flex;
             align-items: center;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
+            transition: var(--transition);
+            padding: 8px 0;
+        }
+
+        .contact-item:hover {
+            transform: translateX(10px);
         }
 
         .contact-item i {
-            font-size: 1.2em;
-            color: #073b80;
-            margin-right: 10px;
-            width: 25px; 
+            font-size: 1.2rem;
+            color: var(--accent-orange);
+            margin-right: 15px;
+            width: 25px;
             text-align: center;
         }
 
         .contact-item a {
             text-decoration: none;
-            color: #333;
-            transition: color 0.3s;
+            color: rgba(255, 255, 255, 0.9);
+            transition: var(--transition);
         }
 
         .contact-item a:hover {
-            color: #fb8500;
+            color: var(--accent-orange);
         }
 
         .footer-copyright {
             text-align: center;
-            padding-top: 20px;
-            font-size: 0.9em;
-            color: #666;
-        }
-
-        .footer-links {
-            margin-top: 10px;
-        }
-        .footer-links a {
-            color: #073b80;
-            text-decoration: none;
-            font-size: 0.9em;
-            margin: 0 10px;
+            padding-top: 30px;
+            font-size: 0.95rem;
+            opacity: 0.8;
+            position: relative;
+            z-index: 1;
         }
 
         /* ================================================= */
-        /* RESPONSIVE DAN HAMBURGER MENU FIX */
+        /* RESPONSIVE DESIGN */
         /* ================================================= */
 
-        .menu-toggle {
-            display: none;
-            font-size: 1.8em;
-            color: #073b80;
-            cursor: pointer;
-            /* Memastikan menu-toggle ada di paling kanan saat tidak di-toggle */
-            margin-left: auto; 
+        /* Large Tablets */
+        @media (max-width: 1024px) {
+            .about-header h1 {
+                font-size: 2.8rem;
+            }
+            
+            .about-content-grid {
+                gap: 40px;
+            }
+            
+            .teknologi-cards {
+                grid-template-columns: repeat(2, 1fr);
+            }
         }
 
-        /* Tablet & HP */
-        @media (max-width: 900px) {
-
+        /* Tablets */
+        @media (max-width: 768px) {
             .navbar {
-                height: auto;
-                padding: 10px 0;
+                height: 75px;
+                top: 10px;
             }
-
+            
             .navbar-container {
-                height: auto;
-                flex-wrap: wrap;
-                padding: 10px 20px; /* Padding lebih kecil di mobile */
+                padding: 0 20px;
             }
-
-            .nav-left {
-                width: 100%; /* Agar logo dan teks di baris sendiri saat mobile */
-                justify-content: space-between; /* Pisahkan logo/teks dengan tombol toggle */
-            }
-
-            .nav-menu {
-                width: 100%;
-                flex-direction: column;
-                align-items: center;
-                gap: 15px;
-                margin-top: 15px;
-                display: none;
-            }
-
-            .nav-menu.active {
-                display: flex;
-            }
-
+            
             .menu-toggle {
                 display: block;
-                /* Pindahkan menu-toggle ke dalam nav-left untuk kontrol tata letak */
-                margin-left: 0; 
             }
-
+            
+            .nav-menu {
+                position: fixed;
+                top: 75px;
+                left: 0;
+                width: 100%;
+                background: var(--white);
+                flex-direction: column;
+                align-items: stretch;
+                gap: 0;
+                padding: 20px 0;
+                box-shadow: var(--shadow-lg);
+                transform: translateY(-100%);
+                opacity: 0;
+                visibility: hidden;
+                transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+                z-index: 999;
+                max-height: calc(100vh - 75px);
+                overflow-y: auto;
+            }
+            
+            .nav-menu.active {
+                transform: translateY(0);
+                opacity: 1;
+                visibility: visible;
+            }
+            
+            .nav-menu a, .nav-dropdown > a {
+                width: 100%;
+                padding: 18px 25px;
+                border-bottom: 1px solid #f0f0f0;
+                font-size: 1.1rem;
+                justify-content: flex-start;
+            }
+            
+            .kelurahan-dropdown {
+                position: static;
+                box-shadow: none;
+                background-color: #f8f9fa;
+                border-radius: 0;
+                width: 100%;
+                margin-top: 0;
+                animation: none;
+                opacity: 1;
+                transform: none;
+                display: none;
+            }
+            
+            .kelurahan-dropdown a {
+                padding: 15px 25px 15px 40px;
+                font-size: 1rem;
+            }
+            
+            .nav-dropdown.active .kelurahan-dropdown {
+                display: block;
+            }
+            
+            .about-header h1 {
+                font-size: 2.2rem;
+            }
+            
             .about-content-grid {
                 flex-direction: column;
                 text-align: center;
             }
-
-            .about-text-right {
-                text-align: left;
-            }
-
-            .about-visual-left {
-                order: -1;
-            }
-
+            
             .about-visual-left img {
-                max-width: 180px;
+                max-width: 220px;
             }
-        }
-
-        /* HP kecil */
-        @media (max-width: 480px) {
-
-            .about-header h1 {
-                font-size: 1.8em;
-            }
-
+            
             .developer-card {
-                padding: 20px;
-                margin: 15px;
+                padding: 35px 25px;
+                margin: 0 20px;
             }
-
-            .developer-card img {
-                width: 120px;
-                height: 120px;
-            }
-
-            .teknologi-card {
-                width: calc(50% - 10px); /* 2 kolom di HP kecil */
-            }
-
-            .footer-left, .footer-right {
-                flex-basis: 100%;
-                margin-bottom: 20px;
-            }
-
-            .footer-left h4 {
-                flex-direction: column;
-                align-items: flex-start;
-                font-size: 1.2em;
-            }
-
-            .footer-left p,
-            .contact-item {
-                font-size: 0.9em;
+            
+            .teknologi-cards {
+                grid-template-columns: 1fr;
+                max-width: 400px;
+                margin: 0 auto;
             }
         }
-       
+
+        /* Mobile Phones */
+        @media (max-width: 480px) {
+            .navbar {
+                height: 70px;
+                top: 8px;
+            }
+            
+            .navbar-container {
+                height: 60px;
+                padding: 0 15px;
+            }
+            
+            .logo {
+                height: 35px;
+            }
+            
+            .nav-left span {
+                font-size: 1rem;
+            }
+            
+            .content {
+                margin-top: 90px;
+            }
+            
+            .about-header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .about-text-right h3 {
+                font-size: 1.5rem;
+            }
+            
+            .developer-card {
+                padding: 30px 20px;
+            }
+            
+            .developer-card img.avatar {
+                width: 150px;
+                height: 150px;
+            }
+            
+            .footer-content {
+                flex-direction: column;
+                gap: 30px;
+            }
+            
+            .footer-left, .footer-right {
+                min-width: 100%;
+            }
+        }
+
+        /* Animations for Scroll */
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .animate-on-scroll.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Loading Animation */
+        .loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--gradient-blue);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+
+        .loader.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .loader::after {
+            content: '';
+            width: 60px;
+            height: 60px;
+            border: 5px solid rgba(255, 255, 255, 0.3);
+            border-top-color: white;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
     </style>
 </head>
 
 <body>
+    <!-- Loading Animation -->
+    <div class="loader" id="loader"></div>
 
-    <header class="navbar">
+    <!-- Enhanced Navbar with Dropdown -->
+    <header class="navbar" id="navbar">
         <div class="navbar-container">
             <div class="nav-left">
                 <div style="display: flex; align-items: center;">
-                    <img src="Logo_Banyumas.png" class="logo" alt="Logo Banyumas"/>
+                    <img src="Logo_Banyumas.png" class="logo" alt="Logo Banyumas" loading="lazy"/>
                     <span>Geoportal Purwokerto Timur</span>
                 </div>
-                <div class="menu-toggle" id="menuToggle">
+                <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation menu" aria-expanded="false">
                     <i class="fas fa-bars"></i>
-                </div>
+                </button>
             </div>
 
-            <nav class="nav-menu">
-                <a href="../Beranda/"><i class="fas fa-home"></i> Beranda</a>
-                <a href="../Purwokerto_timur/"><i class="fas fa-map"></i> Peta Purwokerto Timur</a>
-                <a href="../Mersi/"><i class="fas fa-map-marked-alt"></i> Peta Kelurahan Mersi</a>
-                <a href="../Tentang/"><i class="fas fa-info-circle"></i> Tentang</a>
+            <nav class="nav-menu" id="navMenu" aria-label="Main navigation">
+                <a href="../Beranda/index.html">
+                    <i class="fas fa-home"></i> Beranda
+                </a>
+                <a href="../Purwokerto_timur/index.html">
+                    <i class="fas fa-map"></i> Peta Purwokerto Timur
+                </a>
+                
+                <!-- DROPDOWN KELURAHAN -->
+                <div class="nav-dropdown" id="kelurahanDropdown">
+                    <a href="#kelurahan" id="kelurahanToggle" aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-map-marked-alt"></i> Peta Kelurahan <i class="fas fa-chevron-down"></i>
+                    </a>
+                    <div class="kelurahan-dropdown" id="kelurahanMenu" role="menu" aria-labelledby="kelurahanToggle">
+                        <a href="../Mersi/index.html" role="menuitem">
+                            <i class="fas fa-map-pin"></i> Mersi
+                        </a>
+                        <a href="../Arcawinangun/index.html" role="menuitem">
+                            <i class="fas fa-map-pin"></i> Arcawinangun
+                        </a>
+                        <a href="../Kranji/index.html" role="menuitem">
+                            <i class="fas fa-map-pin"></i> Kranji
+                        </a>
+                        <a href="../Purwokerto_Wetan/index.html" role="menuitem">
+                            <i class="fas fa-map-pin"></i> Purwokerto Wetan
+                        </a>
+                        <a href="../Sokanegara/index.html" role="menuitem">
+                            <i class="fas fa-map-pin"></i> Sokanegara
+                        </a>
+                        <a href="../Purwokerto_Lor/index.html" role="menuitem">
+                            <i class="fas fa-map-pin"></i> Purwokerto Lor
+                        </a>
+                    </div>
+                </div>
+                
+                <a href="index.html" class="active">
+                    <i class="fas fa-info-circle"></i> Tentang
+                </a>
             </nav>
-           
         </div>
     </header>
 
     <div class="content">
-       
+        <!-- Page 1: About -->
         <div class="about-page-1">
             <div class="page-container">
-               
-                <a href="../Beranda/" class="back-link">← Kembali ke Beranda</a>
+                <a href="../Beranda/index.html" class="back-link">
+                    <i class="fas fa-arrow-left"></i> Kembali ke Beranda
+                </a>
 
                 <div class="about-header">
                     <h1>Purwokerto Timur</h1>
@@ -457,13 +1105,11 @@
                 </div>
                
                 <div class="about-content-grid">
-                   
                     <div class="about-visual-left">
-                        <img src="Logo_Banyumas.png" alt="Logo Kabupaten Banyumas">
+                        <img src="Logo_Banyumas.png" alt="Logo Kabupaten Banyumas" loading="lazy">
                     </div>
                    
                     <div class="about-text-right">
-                       
                         <p>Geoportal Purwokerto Timur merupakan platform web yang menyediakan informasi data spasial terintegrasi untuk wilayah Kecamatan Purwokerto Timur. Platform ini dibangun berdasarkan hasil integrasi data dari berbagai sumber terpercaya untuk mendukung fungsi perencanaan, pengelolaan aset, dan peningkatan transparansi data publik bagi masyarakat dan pemangku kepentingan.</p>
                        
                         <p>Hasil visualisasi data disajikan dalam bentuk peta interaktif (spasial) menggunakan peta dasar tunggal. Informasi yang tersedia pada portal dapat diakses secara publik dan diperbarui secara berkala, menjadikannya acuan dalam mengambil keputusan strategis di tingkat kecamatan.</p>
@@ -473,91 +1119,91 @@
                             <li>Menyediakan akses mudah dan terpadu terhadap data spasial administrasi, infrastruktur, dan tematik di Purwokerto Timur.</li>
                             <li>Mendukung Pemerintah Kecamatan Purwokerto Timur dalam efisiensi perencanaan dan monitoring pembangunan.</li>
                             <li>Menjadi sumber rujukan informasi geografis yang akurat dan terkini bagi publik.</li>
+                            <li>Memfasilitasi pengambilan keputusan berbasis data spasial yang komprehensif.</li>
+                            <li>Meningkatkan partisipasi masyarakat dalam pembangunan wilayah.</li>
                         </ul>
                     </div>
                 </div>
             </div>
         </div>
 
-
+        <!-- Page 2: Developer -->
         <div class="developer-section">
             <div class="page-container">
-                <div class="developer-card">
-                    <img src="foto_pengembang.png" alt="Foto Pengembang"> 
+                <div class="developer-card animate-on-scroll">
+                    <img src="foto_pengembang.png" alt="Foto Pengembang" class="avatar" loading="lazy">
                    
                     <h4>Sigit Setiyoko</h4>
                     <p>Mahasiswa/Tim Pengembang GIS</p>
                     <p>Kontak: sigitsetiyoko9@gmail.com</p>
-                    <hr style="margin: 20px auto; width: 50%;">
+                    <hr>
                     <p>Dikembangkan oleh:</p>
                    
-                    <img src="logo_instansi.png" alt="Logo Instansi Pendidikan" class="instansi-logo">
+                    <img src="logo_instansi.png" alt="Logo Instansi Pendidikan" class="instansi-logo" loading="lazy">
                     <p>Universitas Amikom Purwokerto</p>
                 </div>
             </div>
         </div>
 
-
+        <!-- Page 3: Technology -->
         <div class="teknologi-page-3">
             <div class="page-container">
                 <h2>🛠️ Teknologi yang Digunakan</h2>
                 <div class="teknologi-cards">
-                   
                     <div class="teknologi-card">
                         <i class="fa fa-globe" style="color: #4CAF50;"></i> 
                         <h4>QGIS</h4>
-                        <p>Pemrosesan & analisis data spasial.</p>
+                        <p>Pemrosesan & analisis data spasial tingkat lanjut dengan plugin khusus.</p>
                     </div>
 
                     <div class="teknologi-card">
                         <i class="fa fa-html5" style="color: #E34F26;"></i>
                         <h4>HTML5</h4>
-                        <p>Struktur dasar halaman web.</p>
+                        <p>Struktur semantik dan markup modern untuk aksesibilitas optimal.</p>
                     </div>
 
                     <div class="teknologi-card">
                         <i class="fa-brands fa-css3-alt" style="color: #1572B6;"></i>
                         <h4>CSS3</h4>
-                        <p>Styling & tata letak visual.</p>
+                        <p>Animasi, transisi, dan layout responsif dengan Flexbox & Grid.</p>
                     </div>
                    
                     <div class="teknologi-card">
                         <i class="fa fa-file-code" style="color: #F7DF1E;"></i>
                         <h4>JavaScript/Leaflet</h4>
-                        <p>Interaktivitas & logika peta.</p>
+                        <p>Interaktivitas peta real-time dan logika aplikasi yang kompleks.</p>
                     </div>
 
                     <div class="teknologi-card">
                         <i class="fa-brands fa-github" style="color: #181717;"></i>
                         <h4>GitHub</h4>
-                        <p>Versi kontrol & repository.</p>
+                        <p>Version control, collaboration, dan deployment otomatis.</p>
                     </div>
 
                     <div class="teknologi-card">
                         <i class="fa fa-external-link-square-alt" style="color: #6C757D;"></i>
                         <h4>WebGIS</h4>
-                        <p>Platform interaktif berbasis web.</p>
+                        <p>Platform interaktif berbasis cloud dengan API terintegrasi.</p>
                     </div>
                 </div>
             </div>
         </div>
-       
-
     </div>
 
+    <!-- Enhanced Footer -->
     <div class="footer-section">
         <div class="footer-content">
-           
             <div class="footer-left">
                 <h4>
-                    <img src="Logo_Banyumas.png" alt="Logo Pwt Timur"> 
+                    <img src="Logo_Banyumas.png" alt="Logo Pwt Timur" loading="lazy"> 
                     GEOPORTAL PURWOKERTO TIMUR
                 </h4>
-                <p>Situs ini merupakan sarana komunikasi dan visualisasi peta dan data Geospasial untuk wilayah Kecamatan Purwokerto Timur, baik untuk kebutuhan Pemerintah Kabupaten Banyumas maupun untuk masyarakat.</p>
+                <p>Situs ini merupakan sarana komunikasi dan visualisasi peta dan data Geospasial untuk wilayah Kecamatan Purwokerto Timur, baik untuk kebutuhan Pemerintah Kabupaten Banyumas maupun untuk masyarakat umum. Kami berkomitmen menyediakan data yang akurat dan terkini.</p>
                
                 <div class="footer-links">
-                    <a href="#">Syarat Ketentuan</a> | 
+                    <a href="#">Syarat Ketentuan</a> 
                     <a href="#">Kebijakan Privasi</a>
+                    <a href="#">Peta Situs</a>
                 </div>
             </div>
 
@@ -581,29 +1227,296 @@
                
                 <div class="contact-item">
                     <i class="fa fa-map-marker-alt"></i>
-                    <a href="#">Purwokerto Timur</a>
+                    <a href="https://maps.google.com">Kantor Kecamatan Purwokerto Timur</a>
                 </div>
-               
             </div>
-           
         </div>
        
         <div class="footer-copyright">
-            © Hak Cipta 2025. Pemerintah Kabupaten Banyumas.
+            © Hak Cipta 2025. Pemerintah Kabupaten Banyumas. Semua hak dilindungi.
         </div>
     </div>
 
     <script>
-        const toggle = document.getElementById("menuToggle");
-        const menu = document.querySelector(".nav-menu");
+        // =================================================
+        // ENHANCED JAVASCRIPT
+        // =================================================
 
-        // Memeriksa apakah elemen toggle dan menu ada sebelum menambahkan event listener
-        if (toggle && menu) {
-            toggle.addEventListener("click", () => {
-                menu.classList.toggle("active");
+        // DOM Elements
+        const navbar = document.getElementById('navbar');
+        const menuToggle = document.getElementById('menuToggle');
+        const navMenu = document.getElementById('navMenu');
+        const kelurahanDropdown = document.getElementById('kelurahanDropdown');
+        const kelurahanToggle = document.getElementById('kelurahanToggle');
+        const kelurahanMenu = document.getElementById('kelurahanMenu');
+        const loader = document.getElementById('loader');
+
+        // Loading Animation
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                loader.classList.add('hidden');
+            }, 1000);
+        });
+
+        // =================================================
+        // SCROLL EFFECT FOR NAVBAR
+        // =================================================
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+            
+            // Scroll animations
+            const elements = document.querySelectorAll('.animate-on-scroll');
+            elements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+                
+                if (elementTop < windowHeight * 0.85) {
+                    element.classList.add('visible');
+                }
+            });
+        });
+
+        // =================================================
+        // MOBILE MENU TOGGLE
+        // =================================================
+        if (menuToggle && navMenu) {
+            menuToggle.addEventListener('click', function(e) {
+                e.stopPropagation();
+                const isExpanded = this.getAttribute('aria-expanded') === 'true';
+                this.setAttribute('aria-expanded', !isExpanded);
+                navMenu.classList.toggle('active');
+                
+                // Toggle hamburger to X icon
+                const icon = this.querySelector('i');
+                icon.classList.toggle('fa-bars');
+                icon.classList.toggle('fa-times');
+                
+                // Prevent body scroll when menu is open
+                document.body.style.overflow = navMenu.classList.contains('active') ? 'hidden' : '';
+            });
+
+            // Close menu when clicking on links
+            const navLinks = navMenu.querySelectorAll('a[href]');
+            navLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    navMenu.classList.remove('active');
+                    menuToggle.setAttribute('aria-expanded', 'false');
+                    const icon = menuToggle.querySelector('i');
+                    icon.classList.remove('fa-times');
+                    icon.classList.add('fa-bars');
+                    document.body.style.overflow = '';
+                });
+            });
+
+            // Close menu when clicking outside
+            document.addEventListener('click', (e) => {
+                if (!navMenu.contains(e.target) && !menuToggle.contains(e.target)) {
+                    navMenu.classList.remove('active');
+                    menuToggle.setAttribute('aria-expanded', 'false');
+                    const icon = menuToggle.querySelector('i');
+                    icon.classList.remove('fa-times');
+                    icon.classList.add('fa-bars');
+                    document.body.style.overflow = '';
+                }
             });
         }
-    </script>
 
+        // =================================================
+        // DROPDOWN FUNCTIONALITY
+        // =================================================
+        if (kelurahanToggle && kelurahanMenu) {
+            kelurahanToggle.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                
+                const isVisible = kelurahanMenu.style.display === 'block';
+                
+                if (isVisible) {
+                    kelurahanMenu.style.display = 'none';
+                    kelurahanToggle.setAttribute('aria-expanded', 'false');
+                    kelurahanDropdown.classList.remove('active');
+                } else {
+                    kelurahanMenu.style.display = 'block';
+                    kelurahanToggle.setAttribute('aria-expanded', 'true');
+                    kelurahanDropdown.classList.add('active');
+                }
+            });
+
+            // Close dropdown when clicking outside
+            document.addEventListener('click', (e) => {
+                if (!kelurahanDropdown.contains(e.target)) {
+                    kelurahanMenu.style.display = 'none';
+                    kelurahanDropdown.classList.remove('active');
+                    kelurahanToggle.setAttribute('aria-expanded', 'false');
+                }
+            });
+
+            // Close dropdown with Escape key
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') {
+                    kelurahanMenu.style.display = 'none';
+                    kelurahanDropdown.classList.remove('active');
+                    kelurahanToggle.setAttribute('aria-expanded', 'false');
+                }
+            });
+        }
+
+        // =================================================
+        // RESPONSIVE BEHAVIOR ON RESIZE
+        // =================================================
+        let resizeTimeout;
+        window.addEventListener('resize', () => {
+            clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(() => {
+                if (window.innerWidth > 768) {
+                    if (navMenu) {
+                        navMenu.classList.remove('active');
+                        navMenu.style.display = '';
+                    }
+                    if (menuToggle) {
+                        menuToggle.setAttribute('aria-expanded', 'false');
+                        const icon = menuToggle.querySelector('i');
+                        icon.classList.remove('fa-times');
+                        icon.classList.add('fa-bars');
+                    }
+                    document.body.style.overflow = '';
+                    
+                    // Reset dropdowns
+                    if (kelurahanMenu) {
+                        kelurahanMenu.style.display = 'none';
+                        kelurahanDropdown.classList.remove('active');
+                        kelurahanToggle.setAttribute('aria-expanded', 'false');
+                    }
+                }
+                
+                if (window.innerWidth <= 768 && kelurahanMenu) {
+                    kelurahanMenu.style.position = 'static';
+                    kelurahanMenu.style.transform = 'none';
+                    kelurahanMenu.style.left = 'auto';
+                }
+            }, 250);
+        });
+
+        // =================================================
+        // ACTIVE LINK HIGHLIGHTING
+        // =================================================
+        function setActiveLink() {
+            const currentPath = window.location.pathname;
+            const navLinks = document.querySelectorAll('.nav-menu a[href]');
+            
+            navLinks.forEach(link => {
+                const linkPath = new URL(link.href, window.location.origin).pathname;
+                if (currentPath === linkPath || 
+                   (currentPath.endsWith('/') && currentPath + 'index.html' === linkPath) ||
+                   (!currentPath.endsWith('/') && currentPath === linkPath.replace('/index.html', ''))) {
+                    link.classList.add('active');
+                    link.setAttribute('aria-current', 'page');
+                } else {
+                    link.classList.remove('active');
+                    link.removeAttribute('aria-current');
+                }
+            });
+        }
+
+        // =================================================
+        // ANIMATIONS ON SCROLL
+        // =================================================
+        function initScrollAnimations() {
+            const elements = document.querySelectorAll('.animate-on-scroll');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, {
+                threshold: 0.1,
+                rootMargin: '0px 0px -100px 0px'
+            });
+            
+            elements.forEach(element => {
+                observer.observe(element);
+            });
+        }
+
+        // =================================================
+        // SMOOTH SCROLL FOR ANCHOR LINKS
+        // =================================================
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    const headerHeight = navbar.offsetHeight;
+                    const targetPosition = targetElement.offsetTop - headerHeight - 20;
+                    
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // =================================================
+        // INITIALIZATION
+        // =================================================
+        document.addEventListener('DOMContentLoaded', () => {
+            setActiveLink();
+            initScrollAnimations();
+            
+            // Set initial states
+            if (window.innerWidth <= 768) {
+                if (kelurahanMenu) kelurahanMenu.style.display = 'none';
+            }
+            
+            // Add hover effects for cards
+            const cards = document.querySelectorAll('.teknologi-card, .developer-card');
+            cards.forEach(card => {
+                card.addEventListener('mouseenter', () => {
+                    card.style.zIndex = '10';
+                });
+                card.addEventListener('mouseleave', () => {
+                    card.style.zIndex = '1';
+                });
+            });
+        });
+
+        // =================================================
+        // ACCESSIBILITY IMPROVEMENTS
+        // =================================================
+        // Focus trap for mobile menu
+        if (navMenu) {
+            const focusableElements = navMenu.querySelectorAll(
+                'a[href], button, input, textarea, select, details, [tabindex]:not([tabindex="-1"])'
+            );
+            
+            if (focusableElements.length > 0) {
+                const firstFocusable = focusableElements[0];
+                const lastFocusable = focusableElements[focusableElements.length - 1];
+                
+                navMenu.addEventListener('keydown', (e) => {
+                    if (e.key === 'Tab') {
+                        if (e.shiftKey && document.activeElement === firstFocusable) {
+                            e.preventDefault();
+                            lastFocusable.focus();
+                        } else if (!e.shiftKey && document.activeElement === lastFocusable) {
+                            e.preventDefault();
+                            firstFocusable.focus();
+                        }
+                    }
+                });
+            }
+        }
+    </script>
 </body>
 </html>
